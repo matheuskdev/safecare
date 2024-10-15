@@ -1,20 +1,19 @@
 [tool.poetry]
-name = "eventos"
+name = "safecare"
 version = "0.1.0"
 description = "Projeto para recebimento e gerenciamento de notificações e eventos, relacionados a segurança e qualidade do paciente hospitalar."
 authors = ["matheus <matheuskdev@gmail.com>"]
 license = "MIT"
 readme = "README.md"
-repository = "https://github.com/matheusbraga/eventos"
-homepage = "https://matheusbraga.dev/eventos"
-keywords = ["django", "hospital", "eventos", "notificações", "segurança", "qualidade"]
+repository = "https://github.com/matheusbraga/safecare"
+keywords = ["django", "hospital", "eventos", "notificações", "segurança", "qualidade", "safecare"]
+package-mode = false
 
 [tool.poetry.dependencies]
 python = "^3.12"
 django = "^5.1.1"
 pillow = "^10.4.0"
 python-decouple = "^3.8"
-djangorestframework = "^3.14.0"
 django-environ = "^0.10.0"
 
 [tool.poetry.group.dev.dependencies]

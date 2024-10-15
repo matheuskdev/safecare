@@ -1,27 +1,35 @@
 // main.js
-import { attachPatientValidationHandlers, removePatientValidationHandlers } from './formValidation.js';
+import {
+  attachPatientValidationHandlers,
+  removePatientValidationHandlers,
+} from "./formValidation.js";
 
-document.addEventListener('DOMContentLoaded', function() {
-    const extraFieldsContainer = document.getElementById('showPatient');
-    const radioShowFields = document.getElementById('patient_yes');
-    const radioHideFields = document.getElementById('patient_no');
+import {
+  attachOcurrenceValidationHandlers,
+} from "./formOcurrenceValidation.js";
 
-
-    radioShowFields.addEventListener('change', function() {
-        extraFieldsContainer.style.display = 'flex';
-        attachPatientValidationHandlers();
-    });
-
-    radioHideFields.addEventListener('change', function() {
-        extraFieldsContainer.style.display = 'none';
-        removePatientValidationHandlers();
-    });
+document.addEventListener("DOMContentLoaded", function () {
+  const extraFieldsContainer = document.getElementById("showPatient");
+  const radioShowFields = document.getElementById("patient_yes");
+  const radioHideFields = document.getElementById("patient_no");
 
 
-    if (radioShowFields.checked) {
-        extraFieldsContainer.style.display = 'flex';
-        attachPatientValidationHandlers();
-    } else {
-        extraFieldsContainer.style.display = 'none';
-    }
+  radioShowFields.addEventListener("change", function () {
+    extraFieldsContainer.style.display = "flex";
+    attachPatientValidationHandlers();
+  });
+
+  radioHideFields.addEventListener("change", function () {
+    extraFieldsContainer.style.display = "none";
+    removePatientValidationHandlers();
+  });
+
+  if (radioShowFields.checked) {
+    extraFieldsContainer.style.display = "flex";
+    attachPatientValidationHandlers();
+    attachOcurrenceValidationHandlers();
+  } else {
+    extraFieldsContainer.style.display = "none";
+    attachOcurrenceValidationHandlers();
+  }
 });

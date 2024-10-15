@@ -1,0 +1,178 @@
+      <!-- Data da Notificação (somente leitura) -->
+      <div class="col-md-3">
+        <div class="form-floating">
+          <input
+            type="text"
+            class="form-control bg-light"
+            id="floatingNotificationDate"
+            placeholder="Data da Notificação"
+            value="{{ current_date }}"
+            readonly
+          />
+          <label for="floatingNotificationDate"
+            ><i class="bi bi-calendar3"></i> Data da Notificação</label
+          >
+        </div>
+      </div>
+
+      <!-- Seção de Informações do Paciente -->
+      <hr />
+
+      <!-- Nome do Paciente -->
+      <div class="col-md-8">
+        <div class="form-floating">
+          <input
+            type="text"
+            class="form-control"
+            id="floatingPatientName"
+            placeholder="Nome do Paciente"
+            min='5'
+            pattern="^[A-Za-zÀ-ú\s]+$" 
+            title="Somente letras e espaços são permitidos"
+          />
+          <label for="floatingPatientName"
+            ><i class="bi bi-person"></i> Nome do Paciente</label
+          >
+        </div>
+      </div>
+
+      <!-- Data de Nascimento -->
+      <div class="col-md-4">
+        <div class="form-floating">
+          <input
+            type="date"
+            class="form-control"
+            id="floatingBirthDate"
+            placeholder="Data de Nascimento"
+            required
+          />
+          <label for="floatingBirthDate"
+            ><i class="bi bi-calendar3"></i> Data de Nascimento</label
+          >
+        </div>
+      </div>
+
+      <!-- Atendimento -->
+      <div class="col-md-4">
+        <div class="form-floating">
+          <input
+            type="text"
+            class="form-control"
+            id="floatingAttendance"
+            placeholder="Atendimento"
+            required
+          />
+          <label for="floatingAttendance"
+            ><i class="bi bi-hospital"></i> Atendimento</label
+          >
+        </div>
+      </div>
+
+      <!-- Registro -->
+      <div class="col-md-4">
+        <div class="form-floating">
+          <input
+            type="text"
+            class="form-control"
+            id="floatingRecord"
+            placeholder="Registro"
+            required
+          />
+          <label for="floatingRecord"
+            ><i class="bi bi-journal"></i> Registro</label
+          >
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="form-floating">
+          <input
+            type="date"
+            class="form-control"
+            id="floatingInternmentDate"
+            placeholder="Data de Internamento"
+            required
+          />
+          <label for="floatingInternmentDate"
+            ><i class="bi bi-calendar2-plus"></i> Data de Internamento</label
+          >
+        </div>
+      </div>
+
+      <!-- Seção de Dados da Ocorrência -->
+      <hr />
+
+      <!-- Data de Internamento -->
+
+      <!-- Data da Ocorrência -->
+      <div class="col-md-6">
+        <div class="form-floating">
+          <input
+            type="date"
+            class="form-control"
+            id="floatingOccurrenceDate"
+            placeholder="Data da Ocorrência"
+            required
+          />
+          <label for="floatingOccurrenceDate"
+            ><i class="bi bi-calendar-event"></i> Data da Ocorrência</label
+          >
+        </div>
+      </div>
+
+      <!-- Hora da Ocorrência -->
+      <div class="col-md-6">
+        <div class="form-floating">
+          <input
+            type="time"
+            class="form-control"
+            id="floatingOccurrenceTime"
+            placeholder="Hora da Ocorrência"
+            required
+          />
+          <label for="floatingOccurrenceTime"
+            ><i class="bi bi-clock"></i> Hora da Ocorrência</label
+          >
+        </div>
+      </div>
+
+      <!-- Seção de Setores Envolvidos -->
+      <hr />
+
+      <!-- Setor Notificante -->
+      <div class="col-md-6">
+        <div class="form-floating mb-3">
+          <select
+            class="form-select"
+            id="floatingReportingSector"
+            aria-label="Setor Notificante"
+            required
+          >
+            {% for sector in reporting_sectors %}
+            <option value="{{ sector.id }}">{{ sector.name }}</option>
+            {% endfor %}
+          </select>
+          <label for="floatingReportingSector"
+            ><i class="bi bi-building"></i> Setor Notificante</label
+          >
+        </div>
+      </div>
+
+      <!-- Setor Notificado -->
+      <div class="col-md-6">
+        <div class="form-floating mb-3">
+          <select
+            class="form-select"
+            id="floatingNotifiedSector"
+            aria-label="Setor Notificado"
+            required
+          >
+            {% for sector in notified_sectors %}
+            <option value="{{ sector.id }}">{{ sector.name }}</option>
+            {% endfor %}
+          </select>
+          <label for="floatingNotifiedSector"
+            ><i class="bi bi-building"></i> Setor Notificado</label
+          >
+        </div>
+      </div>

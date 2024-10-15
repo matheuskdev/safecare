@@ -1,0 +1,94 @@
+<!-- Floating Labels Form -->
+<div class="row g-3">
+  <!-- Classificação da Ocorrência -->
+  <div class="col-md-4">
+    <div class="form-floating mb-3">
+      <select
+        class="form-select"
+        id="incidentClassification"
+        aria-label="Classificação do incidente"
+      >
+        {% for incident in incidents %}
+        <option value="{{ incident.id }}">{{ incident.name }}</option>
+        {% endfor %}
+      </select>
+      <label for="incidentClassification"
+        ><i class="bi bi-building"></i>Classificação do incidente</label
+      >
+    </div>
+  </div>
+
+  <!-- Classificação da Ocorrência -->
+  <div class="col-md-4">
+    <div class="form-floating mb-3">
+      <select
+        class="form-select"
+        id="ocurrenceClassification"
+        aria-label="Classificação da ocorrência"
+      >
+        {% for ocurrence in ocurrences %}
+        <option value="{{ ocurrence.id }}">{{ ocurrence.name }}</option>
+        {% endfor %}
+      </select>
+      <label for="ocurrenceClassification"
+        ><i class="bi bi-building"></i>Classificação da Ocorrência</label
+      >
+    </div>
+  </div>
+
+  <!-- Classificação do Dano -->
+  <div class="col-md-4">
+    <div class="form-floating mb-3">
+      <select
+        class="form-select"
+        id="damageClassification"
+        aria-label="Classificação do Dano"
+      >
+        {% for damage in damages %}
+        <option value="{{ damage.id }}">{{ damage.name }}</option>
+        {% endfor %}
+      </select>
+      <label for="damageClassification"
+        ><i class="bi bi-building"></i>Classificação do Dano</label
+      >
+    </div>
+  </div>
+
+  <!-- Descrição da ocorrência -->
+  <div class="col-md-6">
+    <div class="form-floating">
+      <textarea
+        class="form-control"
+        id="descriptionOcurrence"
+        placeholder="Descrição da Ocorrência"
+        required
+        rows="10"
+        titile="Descreva a ocorrência com todos os detalhes"
+      ></textarea>
+      <label for="descriptionOcurrence"
+        ><i class="bi bi-warn"></i> Descrição da Ocorrência</label
+      >
+    </div>
+  </div>
+
+  <!-- O que foi realizado após a ocorrência / Ação imediata -->
+  <div class="col-md-6">
+    <div class="form-floating">
+      <textarea
+        type="textarea"
+        class="form-control"
+        id="immediateAction"
+        placeholder="O que foi realizado após a ocorrência / Ação imediata "
+        ,
+        rows="10"
+        required
+        titile="O que foi realizado após a ocorrência / Ação imediata "
+      ></textarea>
+      <label for="immediateAction">
+        <i class="bi bi-warn"></i> O que foi realizado após a ocorrência / Ação
+        imediata
+      </label>
+    </div>
+  </div>
+</div>
+<!-- End floating Labels Form -->

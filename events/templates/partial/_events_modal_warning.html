@@ -1,0 +1,20 @@
+{% load static %}
+<div class="modal fade" id="warningmodal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">Ficha de Notificação e Eventos</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+           <center><img src="{% static 'assets/img/ttt.png' %}" alt="" width="200px"></center>
+        </div>
+        <div class="modal-footer">
+            {% comment %} <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> {% endcomment %}
+            <center>
+            Os dados informados neste formulário são de total sigilo, sendo manuseados apenas pelo Gerenciamento de Risco.
+            </center>
+        </div>
+        </div>
+    </div>
+</div>

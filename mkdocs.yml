@@ -1,0 +1,19 @@
+site_name: MK Docs
+repor_url: https://github.com/matheuskdev/notificacao_hospitalar.git
+repo_name: matheuskdev/notificacao_hospitalar
+edit_uri: tree/main/docs
+
+theme:
+  name: material
+  language: pt-BR
+  logo: assets/logo.png
+  favicon: assets/logo.png
+
+markdown_extensions:
+  - attr_list
+
+plugins:
+- mkdocstrings:
+    handlers:
+      python:
+        paths: ["."]

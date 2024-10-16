@@ -10,7 +10,6 @@ from django.urls import reverse, reverse_lazy
 from . import manager
 
 
-
 class TimestampModelMixin(models.Model):
     """
     Providing self-managed 'created_at' and 'updated_at' data fields for models.

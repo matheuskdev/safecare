@@ -8,7 +8,7 @@ class Command(BaseCommand):
     help = "Populate the Department table and edit user ID 1"
 
     def handle(self, *args, **kwargs):
-        # Crie os departamentos
+
         departments = [
             {"name": " Administração", "description": "Departamento Administrativo"},
             {"name": "Financeiro", "description": "Departamento Financeiro"},
@@ -32,7 +32,6 @@ class Command(BaseCommand):
                     self.style.WARNING(f'Department "{department.name}" already exists.')
                 )
 
-        # Adicionar departamentos ao usuário de ID 1
         User = get_user_model()
         user = User.objects.get(id=1)
         user.departments.add(*Department.objects.all())

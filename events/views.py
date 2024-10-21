@@ -1,8 +1,10 @@
 from datetime import datetime
+
 from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView
-from .models import EventPatient, EventOcurrence
-from .forms import EventPatientForm, EventOcurrenceForm
+
+from .forms import EventOcurrenceForm, EventPatientForm
+from .models import EventOcurrence, EventPatient
 
 
 class EventOcurrenceCreateView(CreateView):

@@ -1,11 +1,11 @@
 // formValidation.js
 const currentDate = new Date();
 
-const patientName = document.getElementById("patientName");
-const birthDate = document.getElementById("birthDate");
-const attendance = document.getElementById("attendance");
-const record = document.getElementById("record");
-const internmentDate = document.getElementById("internmentDate");
+const patientName = document.getElementById("id_patient_name");
+const birthDate = document.getElementById("id_birth_date");
+const attendance = document.getElementById("id_attendance");
+const record = document.getElementById("id_record");
+const internmentDate = document.getElementById("id_internment_date");
 
 const nameError = document.getElementById("nameError");
 const birthDateError = document.getElementById("birthDateError");

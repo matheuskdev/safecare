@@ -2,10 +2,10 @@
 
 const currentDate = new Date();
 
-const ocurrenceDate = document.getElementById("ocurrenceDate");
-const ocurrenceTime = document.getElementById("ocurrenceTime");
-const descriptionOcurrence = document.getElementById("descriptionOcurrence");
-const immediateAction = document.getElementById("immediateAction");
+const ocurrenceDate = document.getElementById("id_ocurrence_date");
+const ocurrenceTime = document.getElementById("id_ocurrence_time");
+const descriptionOcurrence = document.getElementById("id_description_ocurrence");
+const immediateAction = document.getElementById("id_immediate_action");
 
 const ocurrenceDateError = document.getElementById("ocurrenceDateError");
 const ocurrenceTimeError = document.getElementById("ocurrenceTimeError");

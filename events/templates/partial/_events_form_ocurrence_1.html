@@ -1,17 +1,12 @@
 <!-- Data da Ocorrência -->
 <div class="col-md-6">
   <div class="form-floating">
-    <input
-      type="date"
-      class="form-control"
-      id="ocurrenceDate"
-      placeholder="Data da Ocorrência"
-      required
-    />
+    {{form.ocurrence_date}}
     <label for="ocurrenceDate"
       ><i class="bi bi-calendar-event"></i> Data da Ocorrência</label
     >
     <span class="error" id="ocurrenceDateError"></span>
+    <span class="error">{{ form.ocurrence_date.errors }}</span>
     <!-- Mensagem de erro -->
   </div>
 </div>
@@ -19,17 +14,12 @@
 <!-- Hora da Ocorrência -->
 <div class="col-md-6">
   <div class="form-floating">
-    <input
-      type="time"
-      class="form-control"
-      id="ocurrenceTime"
-      placeholder="Hora da Ocorrência"
-      required
-    />
+  {{form.ocurrence_time}}
     <label for="ocurrenceTime"
       ><i class="bi bi-clock"></i> Hora da Ocorrência</label
     >
     <span class="error" id="ocurrenceTimeError"></span>
+    <span class="error">{{ form.ocurrence_time.errors }}</span>
     <!-- Mensagem de erro -->
   </div>
 </div>
@@ -40,16 +30,7 @@
 <!-- Setor Notificante -->
 <div class="col-md-6">
   <div class="form-floating mb-3">
-    <select
-      class="form-select"
-      id="reportingSector"
-      aria-label="Setor Notificante"
-      required
-    >
-      {% for sector in reporting_sectors %}
-      <option value="{{ sector.id }}">{{ sector.name }}</option>
-      {% endfor %}
-    </select>
+{{form.reporting_department}}
     <label for="reportingSector"
       ><i class="bi bi-building"></i> Setor Notificante</label
     >
@@ -59,16 +40,7 @@
 <!-- Setor Notificado -->
 <div class="col-md-6">
   <div class="form-floating mb-3">
-    <select
-      class="form-select"
-      id="notifiedSector"
-      aria-label="Setor Notificado"
-      required
-    >
-      {% for sector in notified_sectors %}
-      <option value="{{ sector.id }}">{{ sector.name }}</option>
-      {% endfor %}
-    </select>
+  {{form.notified_department}}
     <label for="notifiedSector"
       ><i class="bi bi-building"></i> Setor Notificado</label
     >

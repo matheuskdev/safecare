@@ -23,15 +23,9 @@ class EventPatient(# type: ignore[misc]
     )
     attendance = models.IntegerField(
         help_text='Número do Atendimento',
-        validators=[
-            MinLengthValidator(9999, 'O número do atendimento deve conter no mínimo 5 caracteres')
-        ]
     )
     record = models.IntegerField(
         help_text='Número do prontuário.',
-        validators=[
-            MinLengthValidator(1, 'O valor mínimo do prontuário é 1.')
-        ]
     )
     birth_date = models.DateField(
         help_text='Data de nascimento.'

@@ -18,7 +18,6 @@ class EventPatientForm(forms.ModelForm):
                     'class': 'form-control',
                     'placeholder': 'Nome do Paciente',
                     'required': True,
-                    'min': 5,
                     'pattern': '^[A-Za-zÀ-ú\s]+$',
                     'title': 'Somente letras e espaços são permitidos',
                 }
@@ -124,12 +123,16 @@ class EventOcurrenceForm(forms.ModelForm):
             ), 
             'description_ocurrence': forms.Textarea(
                 attrs={
-                    'class': 'form-control'
+                    'class': 'form-control',
+                    'placeholder': 'Descrição da Ocorrência',
+                    'required': True
                 }
             ),
             'immediate_action': forms.Textarea(
                 attrs={
-                    'class': 'form-control'
+                    'class': 'form-control',
+                    'placeholder': 'O que foi realizado após a ocorrência / Ação imediata',
+                    'required': True
                 }
             ),
         }

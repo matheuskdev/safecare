@@ -22,13 +22,17 @@ class EventOcurrenceCreateView(CreateView):
     def form_valid(self, form):
         context = self.get_context_data()
         patient_form = context['patient_form']
-
+        print(f"PATIENT FORM VALID:")
         # Verifica se há um paciente envolvido
         if form.cleaned_data.get('patient_involved'):
+            print("PRIMEIRO IF")
             # Verifica se o formulário do paciente é válido
             if patient_form.is_valid():
+                print("SEGUNDO IF")
                 patient = patient_form.save()  
                 form.instance.patient = patient
+                print("PASSEI AQUI SALVO **********************************************************")
+                print(patient_form)
             else:
                 return self.form_invalid(form)
 
@@ -36,4 +40,6 @@ class EventOcurrenceCreateView(CreateView):
     
     def form_invalid(self, form):
         context = self.get_context_data(form=form)
+        print("deu merda **********************************************************")
+        print(context)
         return self.render_to_response(context)

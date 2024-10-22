@@ -18,28 +18,12 @@
     <form class="row g-3"  method="post">
     {% csrf_token %}
       <!-- Seção do radiobutton -->
-      <p class="text-center">
+      <div class="text-center">
         <b>
-          A ocorrência envolveu um paciente?
-          <input
-            class="form-check-input"
-            type="radio"
-            name="gridRadios"
-            id="patient_yes"
-            value="yes"
-          />
-          Sim
-          <input
-            class="form-check-input"
-            type="radio"
-            name="gridRadios"
-            id="patient_no"
-            value="no"
-            checked
-          />
-          Não
+          <div class="text-danger">A ocorrência envolveu um paciente?</div>
+        {{form.patient_involved}}
         </b>
-      </p>
+      </div>
 
       <!-- Seção de Informações da Notificação -->
 

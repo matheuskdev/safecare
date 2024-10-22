@@ -6,22 +6,12 @@
 <!-- Nome do Paciente -->
 <div class="col-md-8">
   <div class="form-floating">
-{% comment %}     <input
-      type="text"
-      class="form-control"
-      id="patientName"
-      placeholder="Nome do Paciente"
-      required
-      min="5"
-      pattern="^[A-Za-zÀ-ú\s]+$"
-      title="Somente letras e espaços são permitidos"
-    /> {% endcomment %}
     {{ form.patient_name }}
     <label for="patientName"
       ><i class="bi bi-person"></i> Nome do Paciente</label
     >
     <span class="error" id="nameError"></span>
-    <span class="error" id="nameError">{{form.patient_name.errors}}</span>
+    <span class="error">{{form.patient_name.errors}}</span>
      <!-- Mensagem de erro -->
   </div>
 </div>
@@ -29,19 +19,12 @@
 <!-- Data de Nascimento -->
 <div class="col-md-4">
   <div class="form-floating">
-{% comment %}     <input
-      type="date"
-      class="form-control"
-      id="birthDate"
-      placeholder="Data de Nascimento"
-      required
-    /> {% endcomment %}
     {{form.birth_date}}
     <label for="birthDate"
       ><i class="bi bi-calendar3"></i> Data de Nascimento</label
     >
     <span class="error" id="birthDateError"></span> 
-    <span class="error" id="birthDateError">{{form.birth_date.errors}}</span>
+    <span class="error">{{form.birth_date.errors}}</span>
     <!-- Mensagem de erro -->
   </div>
 </div>
@@ -49,13 +32,7 @@
 <!-- Atendimento -->
 <div class="col-md-4">
   <div class="form-floating">
-{% comment %}     <input
-      type="text"
-      class="form-control"
-      id="attendance"
-      placeholder="Atendimento"
-      required
-    /> {% endcomment %}
+
     {{form.attendance}}
     <label for="attendance"
       ><i class="bi bi-hospital"></i> Atendimento</label
@@ -69,13 +46,6 @@
 <!-- Registro -->
 <div class="col-md-4">
   <div class="form-floating">
-{% comment %}     <input
-      type="text"
-      class="form-control"
-      id="record"
-      placeholder="Registro"
-      required
-    /> {% endcomment %}
     {{form.record}}
     <label for="record"><i class="bi bi-journal"></i> Registro</label>
   <span class="error" id="recordError"></span>
@@ -87,13 +57,6 @@
 <!-- Data do Internammento-->
 <div class="col-md-4">
   <div class="form-floating">
-{% comment %}     <input
-      type="date"
-      class="form-control"
-      id="internmentDate"
-      placeholder="Data de Internamento"
-      required
-    /> {% endcomment %}
     {{form.internment_date}}
     <label for="internmentDate"
       ><i class="bi bi-calendar2-plus"></i> Data de Internamento</label

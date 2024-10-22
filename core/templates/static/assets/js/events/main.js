@@ -10,8 +10,8 @@ import {
 
 document.addEventListener("DOMContentLoaded", function () {
   const extraFieldsContainer = document.getElementById("showPatient");
-  const radioShowFields = document.getElementById("patient_yes");
-  const radioHideFields = document.getElementById("patient_no");
+  const radioShowFields = document.getElementById("id_patient_involved_0");
+  const radioHideFields = document.getElementById("id_patient_involved_1");
 
 
   radioShowFields.addEventListener("change", function () {

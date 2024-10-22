@@ -4,7 +4,6 @@
   <div class="col-md-4">
     <div class="form-floating mb-3">
     {{form.incident_classification}}
-      </select>
       <label for="incidentClassification"
         ><i class="bi bi-building"></i>Classificação do incidente</label
       >
@@ -34,39 +33,28 @@
   <!-- Descrição da ocorrência -->
   <div class="col-md-6">
     <div class="form-floating">
-      <textarea
-        class="form-control"
-        id="descriptionOcurrence"
-        placeholder="Descrição da Ocorrência"
-        required
-        rows="10"
-        titile="Descreva a ocorrência com todos os detalhes"
-      ></textarea>
+    {{form.description_ocurrence}}
       <label for="descriptionOcurrence"
         ><i class="bi bi-warn"></i> Descrição da Ocorrência</label
       >
-      <span class="error" id="descriptionOcurrenceError"></span> <!-- Mensagem de erro -->
+      <span class="error" id="descriptionOcurrenceError"></span> 
+      <span class="error">{{form.description_ocurrence.errors}}</span>
+      
+      <!-- Mensagem de erro -->
     </div>
   </div>
 
   <!-- O que foi realizado após a ocorrência / Ação imediata -->
   <div class="col-md-6">
     <div class="form-floating">
-      <textarea
-        type="textarea"
-        class="form-control"
-        id="immediateAction"
-        placeholder="O que foi realizado após a ocorrência / Ação imediata "
-        ,
-        rows="10"
-        required
-        titile="O que foi realizado após a ocorrência / Ação imediata "
-      ></textarea>
+      {{form.immediate_action}}
       <label for="immediateAction">
         <i class="bi bi-warn"></i> O que foi realizado após a ocorrência / Ação
         imediata
       </label>
-       <span class="error" id="immediateActionError"></span> <!-- Mensagem de erro -->
+       <span class="error" id="immediateActionError"></span> 
+       <span class="error"> {{form.immediate_action.errors}}</span>
+       <!-- Mensagem de erro -->
     </div>
   </div>
 </div>

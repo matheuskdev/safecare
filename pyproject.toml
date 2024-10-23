@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "safecare"
+name = "SafeCare"
 version = "0.1.0"
 description = "Projeto para recebimento e gerenciamento de notificações e eventos, relacionados a segurança e qualidade do paciente hospitalar."
 authors = ["matheus <matheuskdev@gmail.com>"]

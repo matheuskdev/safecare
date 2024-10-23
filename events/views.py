@@ -1,13 +1,16 @@
+""" Module views for Events """
 from datetime import datetime
 
 from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView
 
 from .forms import EventOcurrenceForm, EventPatientForm
-from .models import EventOcurrence, EventPatient
+from .models import EventOcurrence
 
 
 class EventOcurrenceCreateView(CreateView):
+    # pylint:disable=too-many-ancestors
+    """Create a event notification."""
     model = EventOcurrence
     form_class = EventOcurrenceForm
     template_name = 'events_form.html'
@@ -22,24 +25,15 @@ class EventOcurrenceCreateView(CreateView):
     def form_valid(self, form):
         context = self.get_context_data()
         patient_form = context['patient_form']
-        print(f"PATIENT FORM VALID:")
-        # Verifica se há um paciente envolvido
         if form.cleaned_data.get('patient_involved'):
-            print("PRIMEIRO IF")
-            # Verifica se o formulário do paciente é válido
             if patient_form.is_valid():
-                print("SEGUNDO IF")
-                patient = patient_form.save()  
+                patient = patient_form.save()
                 form.instance.patient = patient
-                print("PASSEI AQUI SALVO **********************************************************")
-                print(patient_form)
             else:
                 return self.form_invalid(form)
 
         return super().form_valid(form)
-    
+
     def form_invalid(self, form):
         context = self.get_context_data(form=form)
-        print("deu merda **********************************************************")
-        print(context)
         return self.render_to_response(context)

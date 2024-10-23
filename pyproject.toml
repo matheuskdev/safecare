@@ -58,7 +58,7 @@ pre_test = "task lint"
 test = "pytest -s -x --cov -vv"
 post_test = "coverage html"
 migra = "python manage.py makemigrations && python manage.py migrate"
-run = "python manage.py runserver 10.9.10.200:80"
+run = "python manage.py runserver"
 
 [tool.mypy]
 plugins = ["mypy_django_plugin.main"]

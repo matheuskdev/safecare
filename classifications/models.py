@@ -3,7 +3,7 @@ from django.db import models
 from utils import mixins
 
 
-class IncidentClassification(# type: ignore[misc]
+class IncidentClassification(  # type: ignore[misc]
     mixins.TimestampModelMixin,
     mixins.SoftDeleteModelMixin
 ):
@@ -14,7 +14,6 @@ class IncidentClassification(# type: ignore[misc]
         max_length=255,
         help_text="Tipo da classificação do incidente."
     )
-    
 
     class Meta:
         ordering = ["classification"]
@@ -28,7 +27,7 @@ class IncidentClassification(# type: ignore[misc]
         return self.classification
 
 
-class OcurrenceClassification(# type: ignore[misc]
+class OcurrenceClassification(  # type: ignore[misc]
     mixins.TimestampModelMixin,
     mixins.SoftDeleteModelMixin
 ):
@@ -39,7 +38,6 @@ class OcurrenceClassification(# type: ignore[misc]
         max_length=255,
         help_text="Tipo da classificação da ocorrência."
     )
-    
 
     class Meta:
         ordering = ["classification"]
@@ -53,7 +51,7 @@ class OcurrenceClassification(# type: ignore[misc]
         return self.classification
 
 
-class DamageClassification(# type: ignore[misc]
+class DamageClassification(  # type: ignore[misc]
     mixins.TimestampModelMixin,
     mixins.SoftDeleteModelMixin
 ):
@@ -64,7 +62,6 @@ class DamageClassification(# type: ignore[misc]
         max_length=255,
         help_text="Tipo da classificação do dano."
     )
-    
 
     class Meta:
         ordering = ["classification"]

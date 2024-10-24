@@ -19,16 +19,33 @@ from django.urls import path
 
 from . import views
 
-app_name = "departments"
+app_name = 'departments'
 
 urlpatterns = [
-    path("departments/", views.DepartmentListView.as_view(), name="department_list"),
-    path("departments/<int:pk>/", views.DepartmentDetailView.as_view(), name="department_detail"),
-    path("departments/create/", views.DepartmentCreateView.as_view(), name="department_create"),
+
     path(
-        "departments/<int:pk>/update/", views.DepartmentUpdateView.as_view(), name="department_update"
+        'departments/',
+        views.DepartmentListView.as_view(),
+        name='department_list',
     ),
     path(
-        "departments/<int:pk>/delete/", views.DepartmentDeleteView.as_view(), name="department_delete"
+        'departments/<int:pk>/',
+        views.DepartmentDetailView.as_view(),
+        name='department_detail',
+    ),
+    path(
+        'departments/create/',
+        views.DepartmentCreateView.as_view(),
+        name='department_create',
+    ),
+    path(
+        'departments/<int:pk>/update/',
+        views.DepartmentUpdateView.as_view(),
+        name='department_update',
+    ),
+    path(
+        'departments/<int:pk>/delete/',
+        views.DepartmentDeleteView.as_view(),
+        name='department_delete',
     ),
 ]

@@ -1,5 +1,6 @@
 from io import StringIO
 
+import pytest
 from django.contrib.auth import get_user_model
 from django.core.management import call_command
 from django.test import TestCase
@@ -69,3 +70,16 @@ class PopulateCommandTest(TestCase):
         with self.assertRaises(get_user_model().DoesNotExist):
             call_command('populate', stdout=out)
 
+
+User = get_user_model()
+
+@pytest.mark.django_db
+def test_create_superuser():
+    """Test create super user"""
+    if not User.objects.filter(username="admin").exists():
+        User.objects.create_superuser(
+            username="admin",
+            email="admin@example.com",
+            password="admin123"
+        )
+    assert User.objects.filter(username="admin").exists()

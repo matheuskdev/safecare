@@ -1,9 +1,9 @@
 from django import forms
 
 from .models import (
+    DamageClassification,
     IncidentClassification,
     OcurrenceClassification,
-    DamageClassification
 )
 
 

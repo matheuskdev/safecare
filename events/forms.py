@@ -35,8 +35,7 @@ class EventPatientForm(forms.ModelForm):
             'record': forms.NumberInput(
                 attrs={
                     'class': 'form-control',
-                    'placeholder': 'Número do Prontuário',
-                    'required': True,
+                    'placeholder': 'Número do Prontuário'
                 }
             ),
             'birth_date': forms.DateInput(

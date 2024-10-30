@@ -1,5 +1,5 @@
+from django.core.exceptions import ValidationError
 from django.db.utils import IntegrityError
-from django.core.exceptions import FieldError
 
 from departments.models import Department
 from utils.test import SetUpInitial
@@ -26,7 +26,7 @@ class DepartmentModelTest(SetUpInitial):
     def test_department_unique_name(self):
         """Testa a restrição de unicidade no campo 'name'."""
         with self.assertRaises(IntegrityError):
-            Department.objects.create(name='Administração')
+            Department.objects.create(name='Administração', owner_id=1)
 
     def test_department_ordering(self):
         """Testa se o modelo é ordenado corretamente pelo campo 'name'."""
@@ -42,5 +42,5 @@ class DepartmentModelTest(SetUpInitial):
 
     def test_blank_name(self):
         """Testa a criação de um departamento com o campo 'name' em branco."""
-        with self.assertRaises(FieldError):
+        with self.assertRaises(ValidationError):
             Department.objects.create(description='Financeiro', owner_id=self.user.id)

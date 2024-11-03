@@ -2,6 +2,7 @@
 from datetime import datetime
 
 from django.urls import reverse_lazy
+from django.views.generic import TemplateView
 from django.views.generic.edit import CreateView
 
 from .forms import EventOcurrenceForm, EventPatientForm
@@ -14,7 +15,7 @@ class EventOcurrenceCreateView(CreateView):
     model = event_ocurrence_models.EventOcurrence
     form_class = EventOcurrenceForm
     template_name = 'event/events_form.html'
-    success_url = reverse_lazy('ocurrence_success')
+    success_url = reverse_lazy('event_success')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -37,3 +38,7 @@ class EventOcurrenceCreateView(CreateView):
     def form_invalid(self, form):
         context = self.get_context_data(form=form)
         return self.render_to_response(context)
+
+
+class EventSucessTemplateView(TemplateView):
+    template_name = "event/event_sucess.html"

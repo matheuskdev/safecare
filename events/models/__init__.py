@@ -1,4 +1,5 @@
 """ INIT """
 # flake8: noqa
-from .ocurrence_models import EventOcurrence
-from .patient_models import EventPatient
+from .event_ocurrence_models import EventOcurrence
+from .event_patient_models import EventPatient
+from .response_ocurrence_models import ResponseOcurrence

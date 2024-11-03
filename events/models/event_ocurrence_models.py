@@ -2,11 +2,6 @@
 """
 from django.db import models
 
-from classifications.models import (
-    DamageClassification,
-    IncidentClassification,
-    OcurrenceClassification,
-)
 from departments.models import Department
 from utils import mixins
 
@@ -43,24 +38,7 @@ class EventOcurrence(  # type: ignore[misc]
         help_text='Setor que está sendo notificado',
         related_name='notified_events',
     )
-    incident_classification = models.ForeignKey(
-        IncidentClassification,
-        on_delete=models.DO_NOTHING,
-        help_text='Classificação do Incidente',
-        related_name='incident_events',
-    )
-    ocurrence_classification = models.ForeignKey(
-        OcurrenceClassification,
-        on_delete=models.DO_NOTHING,
-        help_text='Classificação da Ocorrência',
-        related_name='ocurrence_events',
-    )
-    damage_classification = models.ForeignKey(
-        DamageClassification,
-        on_delete=models.DO_NOTHING,
-        help_text='Classificação do Dano',
-        related_name='damage_events',
-    )
+    
     description_ocurrence = models.TextField(
         help_text='Descrição da ocorrência'
     )
@@ -79,9 +57,6 @@ class EventOcurrence(  # type: ignore[misc]
             models.Index(fields=['ocurrence_date']),
             models.Index(fields=['reporting_department']),
             models.Index(fields=['notified_department']),
-            models.Index(fields=['incident_classification']),
-            models.Index(fields=['ocurrence_classification']),
-            models.Index(fields=['damage_classification']),
         ]
 
     def __str__(self) -> str:

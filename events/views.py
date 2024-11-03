@@ -5,15 +5,15 @@ from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView
 
 from .forms import EventOcurrenceForm, EventPatientForm
-from .models import ocurrence_models
+from .models import event_ocurrence_models
 
 
 class EventOcurrenceCreateView(CreateView):
     # pylint:disable=too-many-ancestors
     """Create a event notification."""
-    model = ocurrence_models.EventOcurrence
+    model = event_ocurrence_models.EventOcurrence
     form_class = EventOcurrenceForm
-    template_name = 'events_form.html'
+    template_name = 'event/events_form.html'
     success_url = reverse_lazy('ocurrence_success')
 
     def get_context_data(self, **kwargs):

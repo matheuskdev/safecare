@@ -7,8 +7,8 @@ from classifications.models import (
     OcurrenceClassification,
 )
 from departments.models import Department
-from events.models.ocurrence_models import EventOcurrence
-from events.models.patient_models import EventPatient
+from events.models.event_ocurrence_models import EventOcurrence
+from events.models.event_patient_models import EventPatient
 from utils.test import SetUpInitial
 
 

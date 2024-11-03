@@ -4,9 +4,9 @@
 {% endblock page_name %} 
 {% block content %} 
 
-{% include 'partial/_events_modal_warning.html' %} 
+{% include 'event/partial/_events_modal_warning.html' %} 
 
-{% include 'partial/_events_initial_message.html' %}
+{% include 'event/partial/_events_initial_message.html' %}
 
 <div class="card">
   <div class="card-body">
@@ -45,16 +45,14 @@
       </div>
     
 
- {% include 'partial/_events_form_patient.html' with form=patient_form %}
+ {% include 'event/partial/_events_form_patient.html' with form=patient_form %}
 
       <!-- Seção de Dados da Ocorrência -->
       <hr />
 
-{% include 'partial/_events_form_ocurrence_1.html' with form=form %}
+{% include 'event/partial/_events_form_ocurrence_1.html' with form=form %}
 
-{% include 'partial/_events_form_ocurrence_message.html' with form=form %}
-
-{% include 'partial/_events_form_ocurrence_2.html' with form=form %}
+{% include 'event/partial/_events_form_ocurrence_2.html' with form=form %}
 
       <!-- Botões de ação -->
       <div class="text-center">

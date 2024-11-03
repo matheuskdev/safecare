@@ -1,7 +1,10 @@
 from django.contrib import admin
 
-from .models import EventOcurrence, EventPatient
-
+from events.models.event_ocurrence_models import EventOcurrence
+from events.models.event_patient_models import EventPatient
+from events.models.response_ocurrence_models import ResponseOcurrence
+from events.models.ocurrence_description_models import OcurrenceDescription
+from events.models.metas_models import Metas
 
 @admin.register(EventPatient)
 class EventPatientAdmin(admin.ModelAdmin):
@@ -16,12 +19,10 @@ class EventPatientAdmin(admin.ModelAdmin):
 class EventOcurrenceAdmin(admin.ModelAdmin):
     list_display = (
         'ocurrence_date', 'ocurrence_time', 'reporting_department', 
-        'notified_department', 'incident_classification', 
-        'ocurrence_classification', 'damage_classification', 
-        'patient_involved'
+        'notified_department', 'patient_involved'
     )
     search_fields = ('reporting_department__name', 'notified_department__name')
-    list_filter = ('ocurrence_date', 'incident_classification', 'patient_involved')
+    list_filter = ('ocurrence_date', 'patient_involved')
     date_hierarchy = 'ocurrence_date'
     ordering = ('ocurrence_date',)
 
@@ -35,3 +36,35 @@ class EventOcurrenceAdmin(admin.ModelAdmin):
     def patient_name(self, obj):
         return obj.patient.patient_name if obj.patient else "Nenhum Paciente"
     patient_name.short_description = "Paciente Envolvido"
+
+
+@admin.register(Metas)
+class MetasAdmin(admin.ModelAdmin):
+    list_display = ('name',)
+    search_fields = ('name',)
+    list_filter = ('id', 'name',)
+    ordering = ('id',)
+
+
+@admin.register(OcurrenceDescription)
+class OcurrenceDescriptionAdmin(admin.ModelAdmin):
+    list_display = ('name',)
+    search_fields = ('name',)
+    list_filter = ('id', 'name',)
+    ordering = ('id',)
+
+
+@admin.register(ResponseOcurrence)
+class ResponseOcurrenceAdmin(admin.ModelAdmin):
+    list_display = (
+        'ocurrence', 'meta', 'description', 
+        'send_manager', 'event_investigation', 
+        'ocurrence_classification', 'damage_classification', 
+        'incident_classification',
+    )
+    search_fields = (
+        'ocurrence', 'meta', 'send_manager', 'event_investigation',
+    )
+    list_filter = ('ocurrence', 'meta', 'send_manager', 'event_investigation',)
+    date_hierarchy = 'created_at'
+    ordering = ('created_at',)

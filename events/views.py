@@ -5,7 +5,8 @@ from django.urls import reverse_lazy
 from django.views.generic import TemplateView
 from django.views.generic.edit import CreateView
 
-from .forms import EventOcurrenceForm, EventPatientForm
+from events.forms.event_ocurrence_forms import EventOcurrenceForm
+from events.forms.event_patient_forms import EventPatientForm
 from .models import event_ocurrence_models
 
 
@@ -41,4 +42,5 @@ class EventOcurrenceCreateView(CreateView):
 
 
 class EventSucessTemplateView(TemplateView):
+    """Page Sucess Event Send"""
     template_name = "event/event_sucess.html"

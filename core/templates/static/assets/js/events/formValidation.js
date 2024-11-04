@@ -132,6 +132,19 @@ function validateBirthInternmentDate() {
 }
 
 
+export function removeRequired() {
+  const requiredElements = [
+    "id_patient_name",
+    "id_birth_date",
+    "id_attendance",
+    "id_record",
+    "id_internment_date",
+  ];
+  requiredElements.map((elementId) =>
+    document.getElementById(elementId).removeAttribute("required")
+  );
+}
+
 // Add event listeners in validation
 export function attachPatientValidationHandlers() {
   patientName.addEventListener("input", validatePatientName);

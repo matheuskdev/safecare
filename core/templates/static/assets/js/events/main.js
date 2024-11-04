@@ -8,6 +8,9 @@ import {
   attachOcurrenceValidationHandlers,
 } from "./formOcurrenceValidation.js";
 
+import { removeRequired } from "./formValidation.js"
+
+
 document.addEventListener("DOMContentLoaded", function () {
   const extraFieldsContainer = document.getElementById("showPatient");
   const radioShowFields = document.getElementById("id_patient_involved_0");
@@ -31,5 +34,6 @@ document.addEventListener("DOMContentLoaded", function () {
   } else {
     extraFieldsContainer.style.display = "none";
     attachOcurrenceValidationHandlers();
+    removeRequired();
   }
 });

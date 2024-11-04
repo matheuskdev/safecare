@@ -2,9 +2,10 @@ from django.contrib import admin
 
 from events.models.event_ocurrence_models import EventOcurrence
 from events.models.event_patient_models import EventPatient
-from events.models.response_ocurrence_models import ResponseOcurrence
-from events.models.ocurrence_description_models import OcurrenceDescription
 from events.models.metas_models import Metas
+from events.models.ocurrence_description_models import OcurrenceDescription
+from events.models.response_ocurrence_models import ResponseOcurrence
+
 
 @admin.register(EventPatient)
 class EventPatientAdmin(admin.ModelAdmin):

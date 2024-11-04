@@ -1,5 +1,7 @@
 from django.core.management.base import BaseCommand
+
 from events.models.response_ocurrence_models import OcurrenceDescription
+
 
 class Command(BaseCommand):
     help = 'Populates the OcurrenceDescription table with predefined data'

@@ -21,7 +21,7 @@ class EventPatientForm(forms.ModelForm):
                     'class': 'form-control',
                     'placeholder': 'Nome do Paciente',
                     'required': True,
-                    'pattern': '^[A-Za-zÀ-ú\s]+$',
+                    'pattern': '^[A-Za-zÀ-ú/s]+$',
                     'title': 'Somente letras e espaços são permitidos',
                 }
             ),

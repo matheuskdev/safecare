@@ -2,6 +2,7 @@ from django import forms
 
 from events.models import ResponseOcurrence
 
+
 class ResponseOcurrenceForm(forms.ModelForm):
     class Meta:
         model = ResponseOcurrence

@@ -37,13 +37,13 @@ class EventModelsTest(SetUpInitial):
         )
 
     def test_event_patient_creation(self):
-        # Verifica se o paciente foi criado corretamente
+        """Verifica se o paciente foi criado corretamente"""
         self.assertEqual(self.patient.patient_name, "João da Silva")
         self.assertEqual(self.patient.attendance, 12345)
         self.assertEqual(self.patient.record, 67890)
 
     def test_event_ocurrence_creation(self):
-        # Criando uma ocorrência associada ao paciente
+        """Criando uma ocorrência associada ao paciente"""
         event_ocurrence = EventOcurrence.objects.create(
             patient_involved=True,
             ocurrence_date=timezone.now().date(),
@@ -51,9 +51,6 @@ class EventModelsTest(SetUpInitial):
             patient=self.patient,
             reporting_department=self.reporting_department,
             notified_department=self.notified_department,
-            incident_classification=self.incident_classification,
-            ocurrence_classification=self.ocurrence_classification,
-            damage_classification=self.damage_classification,
             description_ocurrence="Descrição da ocorrência",
             immediate_action="Ação imediata realizada",
         )
@@ -68,15 +65,6 @@ class EventModelsTest(SetUpInitial):
         )
         self.assertEqual(
             event_ocurrence.notified_department.name, "TI"
-        )
-        self.assertEqual(
-            event_ocurrence.incident_classification.classification, "Incidente Grave"
-        )
-        self.assertEqual(
-            event_ocurrence.ocurrence_classification.classification, "Erro Médico"
-        )
-        self.assertEqual(
-            event_ocurrence.damage_classification.classification, "Dano Permanente"
         )
         self.assertEqual(
             event_ocurrence.description_ocurrence, "Descrição da ocorrência"

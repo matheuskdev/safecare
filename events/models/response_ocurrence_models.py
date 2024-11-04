@@ -29,7 +29,7 @@ class ResponseOcurrence(
         help_text='Descrição da Ocorrência'
     )
     meta = models.OneToOneField(
-        'Metas',
+        Metas,
         on_delete=models.PROTECT,
         help_text='Meta',
         related_name='meta_response_ocurrence'

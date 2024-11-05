@@ -2,6 +2,8 @@
 from django.db import models
 
 from utils import mixins
+from events.models.genere import Genere
+from events.models.race import Race
 
 
 class EventPatient(  # type: ignore[misc]
@@ -22,6 +24,21 @@ class EventPatient(  # type: ignore[misc]
     )
     birth_date = models.DateField(help_text='Data de nascimento.')
     internment_date = models.DateField(help_text='Data de internação.')
+    genere = models.ForeignKey(
+        Genere,
+        help_text='Gênero',
+        on_delete=models.PROTECT,
+        related_name='event_genere',
+        null=True,
+        blank=True
+    )
+    race = models.ForeignKey(
+        Race,
+        on_delete=models.PROTECT,
+        related_name='event_race',
+        null=True,
+        blank=True
+    )
 
     class Meta:  # pylint: disable=too-few-public-methods
         """Class Meta for Event Patient"""
@@ -35,6 +52,8 @@ class EventPatient(  # type: ignore[misc]
             models.Index(fields=['record']),
             models.Index(fields=['birth_date']),
             models.Index(fields=['internment_date']),
+            models.Index(fields=['genere']),
+            models.Index(fields=['race']),
         ]
 
     def __str__(self) -> str:

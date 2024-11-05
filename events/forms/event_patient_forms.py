@@ -14,6 +14,8 @@ class EventPatientForm(forms.ModelForm):
             'record',
             'birth_date',
             'internment_date',
+            'genere',
+            'race',
         ]
         widgets = {
             'patient_name': forms.TextInput(
@@ -56,6 +58,12 @@ class EventPatientForm(forms.ModelForm):
                 },
                 format='%Y-%m-%d',
             ),
+            'genere': forms.Select(
+                attrs={'class': 'form-select'}
+            ),
+            'race': forms.Select(
+                attrs={'class': 'form-select'}
+            ),
         }
         labels = {
             'patient_name': 'Nome do Paciente',
@@ -63,4 +71,6 @@ class EventPatientForm(forms.ModelForm):
             'record': 'Prontuário',
             'birth_date': 'Data de Nascimento',
             'internment_date': 'Data da Internação',
+            'genere': 'Gênero',
+            'race': 'Raça/Cor',
         }

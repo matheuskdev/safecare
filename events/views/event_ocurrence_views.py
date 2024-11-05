@@ -1,19 +1,20 @@
 """ Module views for Events """
 from datetime import datetime
 
-from django.urls import reverse_lazy
+from django.shortcuts import get_object_or_404
+from django.urls import reverse_lazy, reverse
 from django.views.generic import TemplateView
 from django.views.generic.edit import CreateView
 
 from events.forms.event_ocurrence_forms import EventOcurrenceForm
 from events.forms.event_patient_forms import EventPatientForm
-from .models import event_ocurrence_models
+from events.models.event_ocurrence_models import EventOcurrence
 
 
 class EventOcurrenceCreateView(CreateView):
     # pylint:disable=too-many-ancestors
     """Create a event notification."""
-    model = event_ocurrence_models.EventOcurrence
+    model = EventOcurrence
     form_class = EventOcurrenceForm
     template_name = 'event/events_form.html'
     success_url = reverse_lazy('event_success')
@@ -40,7 +41,17 @@ class EventOcurrenceCreateView(CreateView):
         context = self.get_context_data(form=form)
         return self.render_to_response(context)
 
+    def get_success_url(self) -> str:
+        return reverse('event_success', kwargs={'pk': self.object.id})
+
 
 class EventSucessTemplateView(TemplateView):
     """Page Sucess Event Send"""
     template_name = "event/event_sucess.html"
+
+    def get_context_data(self, **kwargs) -> dict[str]:
+        context = super().get_context_data(**kwargs)
+        event = get_object_or_404(EventOcurrence, pk=self.kwargs.get('pk'))
+        context['event'] = event
+        # context['pk'] = self.kwargs.get('pk')
+        return context

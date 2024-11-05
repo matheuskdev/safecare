@@ -68,6 +68,27 @@
       {{ form.internment_date.errors }}
     </span>
   </div>
+
+
+  <!-- Gênero -->
+  <div class="col-md-6">
+    <div class="form-floating mb-3">
+      {{form.genere}}
+      <label for="genere"
+        ><i class="bi bi-building"></i> Gênero </label
+      >
+    </div>
+  </div>
+
+  <!-- Raça/Cor -->
+  <div class="col-md-6">
+    <div class="form-floating mb-3">
+      {{form.race}}
+      <label for="race"
+        ><i class="bi bi-building"></i> Raça </label
+      >
+    </div>
+  </div>
 </div>
 
 <script type="module" src="{% static 'assets/js/events/main.js' %}"></script>

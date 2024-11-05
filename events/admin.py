@@ -5,7 +5,24 @@ from events.models.event_patient_models import EventPatient
 from events.models.metas_models import Metas
 from events.models.ocurrence_description_models import OcurrenceDescription
 from events.models.response_ocurrence_models import ResponseOcurrence
+from events.models.genere import Genere
+from events.models.race import Race
 
+
+@admin.register(Genere)
+class GenereAdmin(admin.ModelAdmin):
+    list_display = ('name',)
+    search_fields = ('name',)
+    list_filter = ('id', 'name',)
+    ordering = ('id',)
+
+
+@admin.register(Race)
+class RaceAdmin(admin.ModelAdmin):
+    list_display = ('name',)
+    search_fields = ('name',)
+    list_filter = ('id', 'name',)
+    ordering = ('id',)
 
 @admin.register(EventPatient)
 class EventPatientAdmin(admin.ModelAdmin):

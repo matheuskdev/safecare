@@ -11,12 +11,21 @@ from classifications.models import (
 )
 from events.models.metas_models import Metas
 from events.models.ocurrence_description_models import OcurrenceDescription
+from events.services.response_ocurrence_services import CalculateDeadline
 from utils import mixins
 
 
 class ResponseOcurrence(
     mixins.TimestampModelMixin, mixins.OwnerModelMixin
 ):
+    """Model for Response of ocurrence"""
+    def __init__(self, *args, **kwargs) -> None:
+        self.calculate_deadline = CalculateDeadline(
+            ocurrence=self.ocurrence_classification,
+            damage=self.damage_classification
+        )
+        super().__init__(*args, **kwargs)
+
     ocurrence = models.OneToOneField(
         'EventOcurrence',
         on_delete=models.PROTECT,
@@ -94,46 +103,13 @@ class ResponseOcurrence(
             realizou a tratativa da ocorrência {self.ocurrence}
         """
 
-    def calculate_deadline(self):
-        """
-        Calcula o prazo de retorno com base nas classificações de ocorrência e dano.
-        O prazo é definido somando-se um número de dias com base nas classificações.
-        """
-
-        days_of_response = 0
-
-        # Classificação da ocorrência
-        if self.ocurrence_classification.classification == "Improcedente":
-            days_of_response += 1
-        elif self.ocurrence_classification.classification in [
-            "Não conformidade", "Circustância de Risco", 
-            "Quebra de contratualização", "Desvio da Qualidade"
-        ]:
-            days_of_response += 15
-        elif self.ocurrence_classification.classification == "Incidente sem dano":
-            days_of_response += 10
-
-        # Classificação do dano
-        if self.damage_classification.classification == "Nenhum":
-            days_of_response += 15
-        elif self.damage_classification.classification == "Dano Leve":
-            days_of_response += 7
-        elif self.damage_classification.classification == "Dano Moderado":
-            days_of_response += 5
-        elif self.damage_classification.classification == "Dano Grave":
-            days_of_response += 3
-        elif self.damage_classification.classification == "Dano Óbito":
-            days_of_response += 15
-
-        return days_of_response
-
     def save(self, *args, **kwargs):
         """
         Sobrescreve o método save para calcular o prazo automaticamente
         se não houver um valor de 'deadline_response' definido.
         """
         if not self.deadline_response:
-            days_of_response = self.calculate_deadline()
+            days_of_response = self.calculate_deadline.calculate()
             if days_of_response > 0:
                 self.deadline_response = timezone.now().date() + timedelta(days=days_of_response)
         super().save(*args, **kwargs)

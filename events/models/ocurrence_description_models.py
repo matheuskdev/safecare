@@ -22,6 +22,6 @@ class OcurrenceDescription(
         indexes = [
             models.Index(fields=['name']),
         ]
-    
+
     def __str__(self) -> str:
         return f"{self.name}"

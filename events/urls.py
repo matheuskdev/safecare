@@ -16,13 +16,16 @@ Including another URLconf
 """
 from django.urls import path
 
-from . import views
+from events.views.event_ocurrence_views import (
+    EventOcurrenceCreateView,
+    EventSucessTemplateView,
+)
 
 urlpatterns = [
-    path('', views.EventOcurrenceCreateView.as_view(), name='home'),
+    path('', EventOcurrenceCreateView.as_view(), name='home'),
     path(
-        'sucess/',
-        views.EventSucessTemplateView.as_view(),
+        'sucess/<int:pk>/',
+        EventSucessTemplateView.as_view(),
         name='event_success'
     )
 ]

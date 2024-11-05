@@ -1,9 +1,9 @@
 """Module models for events"""
 from django.db import models
 
+from events.models.gender_models import Gender
+from events.models.race_models import Race
 from utils import mixins
-from events.models.genere import Genere
-from events.models.race import Race
 
 
 class EventPatient(  # type: ignore[misc]
@@ -25,7 +25,7 @@ class EventPatient(  # type: ignore[misc]
     birth_date = models.DateField(help_text='Data de nascimento.')
     internment_date = models.DateField(help_text='Data de internação.')
     genere = models.ForeignKey(
-        Genere,
+        Gender,
         help_text='Gênero',
         on_delete=models.PROTECT,
         related_name='event_genere',

@@ -1,6 +1,9 @@
-from utils.test import SetUpInitial
 from django.db.utils import IntegrityError
-from events.models.race_models import Race  # Substitua 'your_app' pelo nome da sua aplicação
+
+from events.models.race_models import (
+    Race,  # Substitua 'your_app' pelo nome da sua aplicação
+)
+from utils.test import SetUpInitial
 
 
 class RaceModelTest(SetUpInitial):
@@ -29,4 +32,4 @@ class RaceModelTest(SetUpInitial):
         race1 = Race.objects.create(name="Pardo")
         race2 = Race.objects.create(name="Indigena")
         races = Race.objects.all()
-        self.assertEqual(list(races), [race2, race1, self.race])  # Ordenado por 'name'
+        self.assertEqual(list(races), [self.race, race2, race1, ])  # Ordenado por 'name'

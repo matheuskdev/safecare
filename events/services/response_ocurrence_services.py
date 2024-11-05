@@ -1,6 +1,7 @@
 """Service for calculate deadline in model response_ocurrence_models"""
 from classifications.models import (
-    OcurrenceClassification, DamageClassification
+    DamageClassification,
+    OcurrenceClassification,
 )
 
 

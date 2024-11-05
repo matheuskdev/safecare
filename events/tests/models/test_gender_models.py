@@ -1,6 +1,7 @@
-from utils.test import SetUpInitial
 from django.db.utils import IntegrityError
+
 from events.models.gender_models import Gender
+from utils.test import SetUpInitial
 
 
 class GenderModelTest(SetUpInitial):
@@ -29,4 +30,4 @@ class GenderModelTest(SetUpInitial):
         gender1 = Gender.objects.create(name="Femenino")
         gender2 = Gender.objects.create(name="Outros(as)")
         genders = Gender.objects.all()
-        self.assertEqual(list(genders), [gender1, gender2, self.gender])  # Ordenado por 'name'
+        self.assertEqual(list(genders), [gender1, self.gender, gender2,])  # Ordenado por 'name'

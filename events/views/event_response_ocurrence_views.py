@@ -1,11 +1,12 @@
 from typing import Any
+
 from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView
 from django.views.generic.edit import CreateView
 
-from events.models.response_ocurrence_models import ResponseOcurrence
 from events.models.event_ocurrence_models import EventOcurrence
+from events.models.response_ocurrence_models import ResponseOcurrence
 
 
 class EventResponseOcurrenceCreateView(CreateView):

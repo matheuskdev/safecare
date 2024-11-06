@@ -16,15 +16,6 @@ def validate_not_empty(value: str) -> None:
 
     Raises:
         ValidationError: If the value is empty or contains only whitespace.
-
-    Example:
-        >>> validate_not_empty("Hello")
-        # No error raised
-
-        >>> validate_not_empty("   ")
-        Traceback (most recent call last):
-            ...
-        django.core.exceptions.ValidationError: ["Este campo não pode estar vazio."]
     """
     if not value.strip():
         raise ValidationError(

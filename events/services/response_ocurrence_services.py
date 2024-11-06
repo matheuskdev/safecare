@@ -61,9 +61,9 @@ class CalculateDeadline:
             - "Dano Óbito": 15 days
 
         Returns:
-            int: The total number of days for the response deadline.
+            days_of_response(int): The total number of days for the response deadline.
         """
-        days_of_response = 0
+        days_of_response: int = 0
 
         # Classificação da ocorrência
         if self.ocurrence_classification.classification == "Improcedente":

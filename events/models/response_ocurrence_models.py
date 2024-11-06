@@ -1,5 +1,6 @@
 """Models for response in ocurrences"""
 from datetime import timedelta
+from typing import Any
 
 from django.db import models
 from django.utils import timezone
@@ -112,7 +113,7 @@ class ResponseOcurrence(
             realizou a tratativa da ocorrência {self.ocurrence}
         """
 
-    def save(self, *args, **kwargs):
+    def save(self, *args: dict[Any], **kwargs:dict[Any]):
         """
         Override the save method to calculate the deadline automatically 
         if the 'deadline_response' field is not set.

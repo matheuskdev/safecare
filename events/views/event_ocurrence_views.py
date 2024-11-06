@@ -1,6 +1,7 @@
 """ Module views for Events """
 from datetime import datetime
 
+from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.urls import reverse, reverse_lazy
 from django.views.generic import TemplateView
@@ -44,7 +45,7 @@ class EventOcurrenceCreateView(CreateView):
     template_name = 'event/events_form.html'
     success_url = reverse_lazy('event_success')
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs: dict) -> dict[str, dict]:
         """
         Adds additional context data to the form view, including a patient form and the current date.
 
@@ -52,14 +53,14 @@ class EventOcurrenceCreateView(CreateView):
             **kwargs: Additional keyword arguments passed to the context.
 
         Returns:
-            dict: The context data including the patient form and current date.
+            context: The context data including the patient form and current date.
         """
-        context = super().get_context_data(**kwargs)
+        context: dict = super().get_context_data(**kwargs)
         context['patient_form'] = EventPatientForm(self.request.POST or None)
         context['current_date'] = datetime.now()
         return context
 
-    def form_valid(self, form):
+    def form_valid(self, form) -> HttpResponse:
         """
         Handles valid form submission. If the patient involved is specified, it validates and saves the patient form.
 
@@ -80,7 +81,7 @@ class EventOcurrenceCreateView(CreateView):
 
         return super().form_valid(form)
 
-    def form_invalid(self, form):
+    def form_invalid(self, form) -> HttpResponse:
         """
         Handles invalid form submissions, rendering the form with errors.
 
@@ -120,7 +121,7 @@ class EventSucessTemplateView(TemplateView):
     """
     template_name = "event/event_sucess.html"
 
-    def get_context_data(self, **kwargs) -> dict[str]:
+    def get_context_data(self, **kwargs: dict[str]) -> dict[str]:
         """
         Adds the event details to the context for rendering the success page.
 

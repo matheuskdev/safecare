@@ -29,7 +29,7 @@ class ResponseOcurrence(
     ocurrence = models.OneToOneField(
         'EventOcurrence',
         on_delete=models.PROTECT,
-        help_text='Ocorrencia relacionada',
+        help_text='Ocorrência relacionada',
         related_name='response_ocurrence',
     )
     ocurrence_description = models.ForeignKey(
@@ -83,8 +83,7 @@ class ResponseOcurrence(
     )
 
     class Meta:  # pylint: disable=too-few-public-methods
-        """Class Meta for Response Ocurrence"""
-
+        """Meta options for ResponseOcurrence model"""
         ordering = ['created_at']
         verbose_name = 'Tratativa'
         verbose_name_plural = 'Tratativas'
@@ -98,6 +97,16 @@ class ResponseOcurrence(
         ]
 
     def __str__(self) -> str:
+        """
+        Return a string representation of the response occurrence.
+
+        This method returns a string that includes the owner's username and 
+        the related occurrence, making it easier to display response occurrences 
+        in textual representations such as the admin interface.
+
+        Returns:
+            str: A string representation of the response occurrence.
+        """
         return f"""
             {self.owner.username}
             realizou a tratativa da ocorrência {self.ocurrence}
@@ -105,8 +114,16 @@ class ResponseOcurrence(
 
     def save(self, *args, **kwargs):
         """
-        Sobrescreve o método save para calcular o prazo automaticamente
-        se não houver um valor de 'deadline_response' definido.
+        Override the save method to calculate the deadline automatically 
+        if the 'deadline_response' field is not set.
+
+        This method calculates the response deadline based on predefined 
+        business logic and assigns it to the 'deadline_response' field before 
+        saving the model instance.
+
+        Args:
+            *args: Additional positional arguments to be passed to the parent save method.
+            **kwargs: Additional keyword arguments to be passed to the parent save method.
         """
         if not self.deadline_response:
             days_of_response = self.calculate_deadline.calculate()

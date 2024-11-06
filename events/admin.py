@@ -26,7 +26,9 @@ class RaceAdmin(admin.ModelAdmin):
 
 @admin.register(EventPatient)
 class EventPatientAdmin(admin.ModelAdmin):
-    list_display = ('patient_name', 'attendance', 'record', 'birth_date', 'internment_date')
+    list_display = (
+        'patient_name', 'attendance', 'record', 'birth_date', 'internment_date'
+    )
     search_fields = ('patient_name', 'attendance', 'record')
     list_filter = ('internment_date', 'birth_date')
     date_hierarchy = 'internment_date'

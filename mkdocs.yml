@@ -1,5 +1,5 @@
-site_name: MK Docs
-repor_url: https://github.com/matheuskdev/notificacao_hospitalar.git
+site_name: SafeCare Documentation
+repo_url: https://github.com/matheuskdev/notificacao_hospitalar.git
 repo_name: matheuskdev/notificacao_hospitalar
 edit_uri: tree/main/docs
 
@@ -13,7 +13,10 @@ markdown_extensions:
   - attr_list
 
 plugins:
-- mkdocstrings:
-    handlers:
-      python:
-        paths: ["."]
+  - search
+  - mkdocstrings:
+      docs:
+        styles: google
+        handlers:
+          python:
+            paths: ["."]

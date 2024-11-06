@@ -1,7 +1,7 @@
 site_name: SafeCare Documentation
 repo_url: https://github.com/matheuskdev/notificacao_hospitalar.git
 repo_name: matheuskdev/notificacao_hospitalar
-edit_uri: tree/main/docs
+edit_uri: docs
 
 theme:
   name: material
@@ -15,8 +15,11 @@ markdown_extensions:
 plugins:
   - search
   - mkdocstrings:
-      docs:
-        styles: google
-        handlers:
-          python:
-            paths: ["."]
+      handlers:
+        python:
+          paths: ["."]
+          options:
+            docstring_style: google
+          
+extra_css: []
+extra_javascript: []

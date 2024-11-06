@@ -10,7 +10,22 @@ class EventOcurrence(  # type: ignore[misc]
     mixins.TimestampModelMixin, mixins.SoftDeleteModelMixin
 ):
     """
-    Model representing a Event Ocurrence.
+    Represents an occurrence related to an event within the system.
+    Stores details like date, time, involved departments, and actions taken.
+
+    Inherits from:
+        - mixins.TimestampModelMixin: Adds automatic creation and updating of date fields.
+        - mixins.SoftDeleteModelMixin: Allows logical deletion of records.
+
+    Args:
+        patient_involved (bool): Indicates if a patient was involved in the occurrence.
+        ocurrence_date (DateField): The date of the occurrence.
+        ocurrence_time (TimeField): The time of the occurrence.
+        patient (ForeignKey, Optional): Foreign key to an EventPatient model (optional).
+        reporting_department (ForeignKey): Foreign key to the reporting department.
+        notified_department (ForeignKey): Foreign key to the notified department.
+        description_ocurrence (TextField): Detailed description of the occurrence.
+        immediate_action (TextField): Actions taken after the occurrence.
     """
 
     patient_involved = models.BooleanField(
@@ -46,9 +61,8 @@ class EventOcurrence(  # type: ignore[misc]
         help_text='O que foi realizado após a corrência / Ação imediata'
     )
 
-    class Meta:  # pylint: disable=too-few-public-methods
-        """Class Meta for Event Ocurrence"""
-
+    class Meta:
+        # pylint: disable=too-few-public-methods, missing-class-docstring
         ordering = ['created_at']
         verbose_name = 'Ocorrência'
         verbose_name_plural = 'Ocorrências'
@@ -60,6 +74,10 @@ class EventOcurrence(  # type: ignore[misc]
         ]
 
     def __str__(self) -> str:
+        """
+        Returns:
+            str: Returns a string containing the reporting_department name and notified_department.
+        """
         return f"""
         O setor: {self.reporting_department} 
         notificou o setor: {self.notified_department}

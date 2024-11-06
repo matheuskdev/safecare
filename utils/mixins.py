@@ -12,7 +12,18 @@ from . import manager
 
 class TimestampModelMixin(models.Model):
     """
-    Providing self-managed 'created_at' and 'updated_at' data fields for models.
+    Abstract model mixin that provides self-managed timestamp fields.
+
+    This mixin adds `created_at` and `updated_at` fields to any model 
+    that inherits from it, automatically setting these fields when the 
+    model instance is created or updated.
+
+    Attributes:
+        created_at (DateTimeField): The timestamp when the object was created.
+        updated_at (DateTimeField): The timestamp when the object was last updated.
+
+    Meta:
+        abstract: This is an abstract base class and won't be used to create any database table.
     """
 
     created_at = models.DateTimeField(auto_now_add=True)
@@ -22,9 +33,26 @@ class TimestampModelMixin(models.Model):
         abstract = True
 
 
+
 class SoftDeleteModelMixin(models.Model):
     """
-    Adding 'is_deleted' field and providing soft delete functionality for models.
+    Abstract model mixin for soft delete functionality.
+
+    This mixin adds an `is_deleted` field and methods for soft deleting
+    and restoring objects. It also includes a custom manager to filter
+    out deleted objects by default.
+
+    Attributes:
+        is_deleted (BooleanField): A flag indicating whether the object has been soft deleted.
+        objects (NonDeletedManager): Custom manager that filters out deleted objects.
+        all_objects (models.Manager): Default manager that includes all objects, regardless of deletion status.
+
+    Methods:
+        soft_delete(): Marks the object as deleted and saves it.
+        restore(): Marks the object as not deleted and saves it.
+
+    Meta:
+        abstract: This is an abstract base class and won't be used to create any database table.
     """
 
     is_deleted = models.BooleanField(default=False)
@@ -32,16 +60,12 @@ class SoftDeleteModelMixin(models.Model):
     all_objects = models.Manager()
 
     def soft_delete(self):
-        """
-        Execute soft delete in objects.
-        """
+        """Marks the object as deleted and saves it."""
         self.is_deleted = True
         self.save()
 
     def restore(self):
-        """
-        Execute restore in objects.
-        """
+        """Restores the object by marking it as not deleted and saves it."""
         self.is_deleted = False
         self.save()
 
@@ -49,9 +73,18 @@ class SoftDeleteModelMixin(models.Model):
         abstract = True
 
 
+
 class SoftDeleteViewMixin:
     """
-    Mixin that overrides the delete method to perform a soft delete.
+    View mixin that overrides the delete method to perform a soft delete.
+
+    This mixin is intended for use with class-based views. It modifies 
+    the default behavior of the delete method to use soft delete instead 
+    of permanently removing the object from the database.
+
+    Methods:
+        delete(request, *args, **kwargs): Performs a soft delete on the object.
+        post(request, *args, **kwargs): Handles POST requests and calls delete.
     """
 
     def delete(self, request, *args, **kwargs):
@@ -60,12 +93,23 @@ class SoftDeleteViewMixin:
         return HttpResponseRedirect(self.get_success_url())
 
     def post(self, request, *args, **kwargs):
+        """Handles POST requests and calls the delete method."""
         return self.delete(request, *args, **kwargs)
+
 
 
 class OwnerModelMixin(models.Model):
     """
-    Providing self-managed 'owner' data field for models.
+    Abstract model mixin that adds an `owner` field.
+
+    This mixin associates the model instance with a user, making it 
+    possible to track ownership of objects.
+
+    Attributes:
+        owner (ForeignKey): A foreign key to the user who owns the object.
+
+    Meta:
+        abstract: This is an abstract base class and won't be used to create any database table.
     """
 
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
@@ -74,19 +118,37 @@ class OwnerModelMixin(models.Model):
         abstract = True
 
 
+
 class OwnerUserMixin:
-    """Add  a new owner based on the current user"""
+    """
+    View mixin that assigns the current user as the owner of a model instance.
+
+    This mixin is used to automatically set the `owner` attribute of 
+    a model instance when a form is successfully validated.
+
+    Methods:
+        form_valid(form): Sets the owner to the current user and calls the parent method.
+    """
 
     def form_valid(self, form):
+        """Assigns the current user to the owner field of the model instance."""
         form.instance.owner = self.request.user
         return super().form_valid(form)
 
 
+
 class DepartmentListFilterMixin:
     """
-    Filter the queryset based on the user's department.
-    If the user's department is 'Administração', return all objects.
-    Otherwise, only return objects related to the user's department.
+    Mixin to filter querysets based on the user's department.
+
+    This mixin filters objects based on the user's department. If the 
+    user belongs to the "Administração" department, all objects are 
+    returned. Otherwise, only objects associated with the user's 
+    department or owned by the user are included.
+
+    Methods:
+        get_queryset(): Returns a filtered queryset based on the user's department.
+        handle_no_permission(): Redirects the user to the home page with an error message if permission is denied.
     """
 
     def get_queryset(self):
@@ -113,6 +175,7 @@ class DepartmentListFilterMixin:
         ).distinct()
 
     def handle_no_permission(self):
+        """Handles cases where the user lacks permission to access a resource."""
         if self.request.user.is_authenticated:
             messages.error(
                 self.request,
@@ -123,10 +186,17 @@ class DepartmentListFilterMixin:
             return super().handle_no_permission()
 
 
+
 class DepartmentPermissionMixin:
     """
-    Get the object and checks access permission.
-    Allows access if the user is the owner of the object or if the sector is 'Administração'.
+    Mixin to check if the user has permission to access an object.
+
+    This mixin ensures that the user can only access objects they own 
+    or are associated with through their department. Users in the 
+    "Administração" department have access to all objects.
+
+    Methods:
+        dispatch(request, *args, **kwargs): Checks access permission and returns the appropriate response.
     """
 
     def dispatch(self, request, *args, **kwargs):

@@ -1,0 +1,32 @@
+<!-- Floating Labels Form -->
+<div class="row g-3">
+
+  <!-- Descrição da ocorrência -->
+  <div class="col-md-6">
+    <div class="form-floating">
+    {{ocurrence.description_ocurrence}}
+      <label for="descriptionOcurrence"
+        ><i class="bi bi-warn"></i> Descrição da Ocorrência</label
+      >
+      <span class="error" id="descriptionOcurrenceError"></span> 
+      <span class="error">{{ocurrence.description_ocurrence.errors}}</span>
+      
+      <!-- Mensagem de erro -->
+    </div>
+  </div>
+
+  <!-- O que foi realizado após a ocorrência / Ação imediata -->
+  <div class="col-md-6">
+    <div class="form-floating">
+      {{ocurrence.immediate_action}}
+      <label for="immediateAction">
+        <i class="bi bi-warn"></i> O que foi realizado após a ocorrência / Ação
+        imediata
+      </label>
+       <span class="error" id="immediateActionError"></span> 
+       <span class="error"> {{form.immediate_action.errors}}</span>
+       <!-- Mensagem de erro -->
+    </div>
+  </div>
+</div>
+<!-- End floating Labels Form -->

@@ -20,6 +20,11 @@ from events.views.event_ocurrence_views import (
     EventOcurrenceCreateView,
     EventSucessTemplateView,
 )
+from events.views.event_response_ocurrence_views import (
+    EventResponseOcurrenceCreateView
+)
+
+app_name = 'events'
 
 urlpatterns = [
     path('', EventOcurrenceCreateView.as_view(), name='home'),
@@ -27,5 +32,10 @@ urlpatterns = [
         'sucess/<int:pk>/',
         EventSucessTemplateView.as_view(),
         name='event_success'
-    )
+    ),
+    path(
+        'response_event/<int:pk>/',
+        EventResponseOcurrenceCreateView.as_view(),
+        name='response_event_create'
+    ),
 ]

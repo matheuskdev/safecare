@@ -43,7 +43,7 @@ class EventOcurrenceCreateView(CreateView):
     model = EventOcurrence
     form_class = EventOcurrenceForm
     template_name = 'event/events_form.html'
-    success_url = reverse_lazy('event_success')
+    success_url = reverse_lazy('events:event_success')
 
     def get_context_data(self, **kwargs: dict) -> dict[str, dict]:
         """
@@ -101,7 +101,7 @@ class EventOcurrenceCreateView(CreateView):
         Returns:
             str: The URL for the success page, including the ID of the created event occurrence.
         """
-        return reverse('event_success', kwargs={'pk': self.object.id})
+        return reverse('events:event_success', kwargs={'pk': self.object.id})
 
 
 class EventSucessTemplateView(TemplateView):

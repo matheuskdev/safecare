@@ -1,0 +1,29 @@
+
+
+<!-- Hora da Ocorrência -->
+<div class="col-md-6">
+  <div class="form-floating">
+ <i class="bi bi-clock"></i> Hora da Ocorrência:
+      {{ocurrence.ocurrence_time}}
+  </div>
+</div>
+
+<!-- Seção de Setores Envolvidos -->
+<hr />
+
+<!-- Setor Notificante -->
+<div class="col-md-6">
+  <div class="ocurrence-floating mb-3">
+
+    <i class="bi bi-building"></i> Setor Notificante:
+    {{ocurrence.reporting_department}}
+  </div>
+</div>
+
+<!-- Setor Notificado -->
+<div class="col-md-6">
+  <div class="form-floating mb-3">
+<i class="bi bi-building"></i> Setor Notificado:
+  {{ocurrence.notified_department}}
+  </div>
+</div>

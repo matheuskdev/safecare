@@ -1,29 +1,39 @@
+<div class="row g-3">
+<!-- Data da Ocorrência -->
+<div class="col-md-6">
+  <div class="form-floating">
 
-
+    <i class="bi bi-calendar-event"></i> Data da Ocorrência:
+    <b>{{ocurrence.ocurrence_date}}</b>
+  </div>
+</div>
 <!-- Hora da Ocorrência -->
 <div class="col-md-6">
   <div class="form-floating">
- <i class="bi bi-clock"></i> Hora da Ocorrência:
-      {{ocurrence.ocurrence_time}}
+    <i class="bi bi-clock"></i> Hora da Ocorrência:
+    <b>{{ocurrence.ocurrence_time}}</b>
   </div>
 </div>
-
+</div>
 <!-- Seção de Setores Envolvidos -->
-<hr />
 
-<!-- Setor Notificante -->
-<div class="col-md-6">
-  <div class="ocurrence-floating mb-3">
+<div class="row g-3">
+  <!-- Setor Notificante -->
+  <div class="col-md-6">
+    <div class="ocurrence-floating mb-3">
 
-    <i class="bi bi-building"></i> Setor Notificante:
-    {{ocurrence.reporting_department}}
+      <i class="bi bi-building"></i> Setor Notificante:
+      <b> {{ocurrence.reporting_department}}</b>
+    </div>
   </div>
-</div>
 
-<!-- Setor Notificado -->
-<div class="col-md-6">
-  <div class="form-floating mb-3">
-<i class="bi bi-building"></i> Setor Notificado:
-  {{ocurrence.notified_department}}
+  <!-- Setor Notificado -->
+  <div class="col-md-6">
+    <div class="form-floating mb-3">
+      <i class="bi bi-building"></i> Setor Notificado:
+      <b> {{ocurrence.notified_department}}</b>
+    </div>
+
   </div>
+
 </div>

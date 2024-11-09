@@ -2,66 +2,24 @@
 <div class="row g-3">
 
   <!-- Descrição da ocorrência -->
-  <div class="col-md-6">
-    <div class="form-floating">
-      <i class="bi bi-warn"></i> Descrição da Ocorrência: <b>{{ocurrence.description_ocurrence}}</b>
+      <div class="col-md-6">
+        <label class="form-label"><i class="bi bi-warn"></i> Descrição da Ocorrência:</label>
+        <ul class="list-group">
+            <li class="list-group-item">
+                <p><b>{{ocurrence.description_ocurrence}}</b></p>
+            </li>
+        </ul>
     </div>
-  </div>
 
   <!-- O que foi realizado após a ocorrência / Ação imediata -->
-  <div class="col-md-6">
-    <div class="form-floating">
-        <i class="bi bi-warn"></i> O que foi realizado após a ocorrência / Ação
-        imediata:
-      <b>{{ocurrence.immediate_action}}</b>
+      <div class="col-md-6">
+        <label class="form-label"><i class="bi bi-warn"></i> O que foi realizado após a ocorrência / Ação
+          imediata:</label>
+        <ul class="list-group">
+            <li class="list-group-item">
+                <p> <b>{{ocurrence.immediate_action}}</b></b></p>
+            </li>
+        </ul>
     </div>
-  </div>
-</div>
-<!-- End floating Labels Form -->
-
-
-<!-- Floating Labels Form -->
-<div class="row g-3">
-  <!-- Classificação da Ocorrência -->
-  <div class="col-md-4">
-    <div class="form-floating mb-3">
-<i class="bi bi-building"></i>Classificação do incidente:
-   <b>{{ocurrence.incident_classification.classification}}</b>
-    </div>
-  </div>
-
-  <!-- Classificação da Ocorrência -->
-  <div class="col-md-4">
-    <div class="form-floating mb-3">
-<i class="bi bi-building"></i>Classificação da Ocorrência:
-              <b>{{ocurrence.ocurrence_classification.classification}}</b>
-    </div>
-  </div>
-
-  <!-- Classificação do Dano -->
-  <div class="col-md-4">
-    <div class="form-floating mb-3">
-    <i class="bi bi-building"></i>Classificação do Dano:
-        <b>{{ocurrence.damage_classification.classification}}</b>
-    </div>
-  </div>
-
-  <!-- Descrição da ocorrência -->
-  <div class="col-md-6">
-    <div class="form-floating">
-    <i class="bi bi-warn"></i> Descrição da Ocorrência:
-    <b>{{ocurrence.description_ocurrence}}</b>
-    </div>
-  </div>
-
-  <!-- O que foi realizado após a ocorrência / Ação imediata -->
-  <div class="col-md-6">
-    <div class="form-floating">
-        <i class="bi bi-warn"></i> O que foi realizado após a ocorrência / Ação
-        imediata:
-      <b>{{ocurrence.immediate_action}}</b>
-       <!-- Mensagem de erro -->
-    </div>
-  </div>
 </div>
 <!-- End floating Labels Form -->

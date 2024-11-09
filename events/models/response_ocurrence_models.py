@@ -10,6 +10,7 @@ from classifications.models import (
     IncidentClassification,
     OcurrenceClassification,
 )
+from events.models.event_ocurrence_models import EventOcurrence
 from events.models.metas_models import Metas
 from events.models.ocurrence_description_models import OcurrenceDescription
 from events.services.response_ocurrence_services import CalculateDeadline
@@ -21,7 +22,7 @@ class ResponseOcurrence(
 ):
 
     ocurrence = models.OneToOneField(
-        'EventOcurrence',
+        EventOcurrence,
         on_delete=models.PROTECT,
         help_text='Informe a Ocorrência relacionada',
         related_name='response_ocurrence',

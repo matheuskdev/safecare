@@ -1,94 +1,65 @@
 {% load static %}
 <!-- Seção de Informações do Paciente -->
-<div id="showPatient" class="row g-3">
-<hr />
+<div class="row g-3">
 
 <!-- Nome do Paciente -->
 <div class="col-md-8">
   <div class="form-floating">
-    {{ ocurrence.patient_name }}
-    <label for="patientName"
-      ><i class="bi bi-person"></i> Nome do Paciente</label
-    >
-    <span class="error" id="nameError"></span>
-    <span class="error">{{form.patient_name.errors}}</span>
-     <!-- Mensagem de erro -->
+    <i class="bi bi-person"></i> ID do Paciente:
+    <b>{{ patient.id }}</b>
   </div>
 </div>
 
 <!-- Data de Nascimento -->
 <div class="col-md-4">
   <div class="form-floating">
-    {{ocurrence.birth_date}}
-    <label for="birthDate"
-      ><i class="bi bi-calendar3"></i> Data de Nascimento</label
-    >
-    <span class="error" id="birthDateError"></span> 
-    <span class="error">{{ocurrence.birth_date.errors}}</span>
-    <!-- Mensagem de erro -->
+    <i class="bi bi-calendar3"></i> Data de Nascimento:
+    <b>{{patient.birth_date}}</b>
   </div>
 </div>
 
 <!-- Atendimento -->
 <div class="col-md-4">
-  <div class="form-floating">
-
-    {{ocurrence.attendance}}
-    <label for="attendance"
-      ><i class="bi bi-hospital"></i> Atendimento</label
-    >
-    <span class="error" id="attendanceError"></span> 
-    <span class="error" id="attendanceError">{{form.attendance.errors}}</span>
-    <!-- Mensagem de erro -->
+  <div class="form-floating">    
+    <i class="bi bi-hospital"></i> Atendimento:
+    <b>{{patient.attendance}}</b>
   </div>
 </div>
 
 <!-- Registro -->
 <div class="col-md-4">
   <div class="form-floating">
-    {{ocurrence.record}}
-    <label for="record"><i class="bi bi-journal"></i> Registro</label>
-  <span class="error" id="recordError"></span>
-  <span class="error" id="recordError">{{ocurrence.record.errors}}</span>
-   <!-- Mensagem de erro -->
+
+   <i class="bi bi-journal"></i> Registro:
+   <b>{{patient.record}}</b>
   </div>
 </div>
 
 <!-- Data do Internammento-->
 <div class="col-md-4">
   <div class="form-floating">
-    {{ocurrence.internment_date}}
-    <label for="internmentDate"
-      ><i class="bi bi-calendar2-plus"></i> Data de Internamento</label
-    >
+    
+  <i class="bi bi-calendar2-plus"></i> Data de Internamento:
+  <b>{{patient.internment_date}}</b>
   </div>
-  <span class="error" id="internmentDateError"></span> <!-- Mensagem de erro -->
-  <span class="error" id="birthInternmentDateError"></span><!-- Mensagem de erro -->
-  <span class="error" id="ocurrenceDateError" role="alert" aria-live="assertive">
-      {{ ocurrence.internment_date.errors }}
-    </span>
   </div>
 
 
   <!-- Gênero -->
-  <div class="col-md-6">
+  <div class="col-md-8">
     <div class="form-floating mb-3">
-      {{ocurrence.genere}}
-      <label for="genere"
-        ><i class="bi bi-building"></i> Gênero </label
-      >
+      
+    <i class="bi bi-building"></i> Gênero:
+    <b>{{patient.genere}}</b>
     </div>
   </div>
 
   <!-- Raça/Cor -->
-  <div class="col-md-6">
+  <div class="col-md-4">
     <div class="form-floating mb-3">
-      {{ocurrence.race}}
-      <label for="race"
-        ><i class="bi bi-building"></i> Raça </label
-      >
+      <i class="bi bi-building"></i> Raça: 
+      <b>{{patient.race}}</b>
     </div>
   </div>
 </div>
-
-<script type="module" src="{% static 'assets/js/events/main.js' %}"></script>
+<hr />

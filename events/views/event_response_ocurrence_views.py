@@ -4,6 +4,7 @@ from django.urls import reverse_lazy
 from django.views.generic.edit import FormView
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from events.models.event_ocurrence_models import EventOcurrence
+from events.models.event_patient_models import EventPatient
 from events.models.response_ocurrence_models import ResponseOcurrence
 from events.forms.response_ocurrence_forms import ResponseOcurrenceForm
 
@@ -32,6 +33,10 @@ class EventResponseOcurrenceCreateView(
         """
         ocurrence_id = self.kwargs.get('pk')
         self.ocurrence = get_object_or_404(EventOcurrence, pk=ocurrence_id)
+        
+        if self.ocurrence.patient_involved:
+            patient_id = self.ocurrence.patient_id
+            self.patient = get_object_or_404(EventPatient, pk=patient_id)
         return super().dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
@@ -41,6 +46,7 @@ class EventResponseOcurrenceCreateView(
         context: dict = super().get_context_data(**kwargs)
         context['ocurrence'] = self.ocurrence
         context['responses'] = ResponseOcurrence.objects.filter(ocurrence=self.ocurrence)
+        context['patient'] = self.patient
         return context
 
     def form_valid(self, form):

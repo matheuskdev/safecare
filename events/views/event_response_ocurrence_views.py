@@ -1,12 +1,18 @@
 from typing import Any
+
+from django.contrib.auth.mixins import (
+    LoginRequiredMixin,
+    PermissionRequiredMixin,
+)
 from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic.edit import FormView
-from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+
+from events.forms.response_ocurrence_forms import ResponseOcurrenceForm
 from events.models.event_ocurrence_models import EventOcurrence
 from events.models.event_patient_models import EventPatient
 from events.models.response_ocurrence_models import ResponseOcurrence
-from events.forms.response_ocurrence_forms import ResponseOcurrenceForm
+
 
 class EventResponseOcurrenceCreateView(
     LoginRequiredMixin,

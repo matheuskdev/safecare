@@ -21,7 +21,7 @@ from events.views.event_ocurrence_views import (
     EventSucessTemplateView,
 )
 from events.views.event_response_ocurrence_views import (
-    EventResponseOcurrenceCreateView
+    EventResponseOcurrenceCreateView,
 )
 
 app_name = 'events'

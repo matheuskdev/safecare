@@ -1,5 +1,6 @@
 """Models for response in ocurrences"""
 from datetime import timedelta
+from typing import Any
 
 from django.db import models
 from django.utils import timezone
@@ -18,33 +19,26 @@ from utils import mixins
 class ResponseOcurrence(
     mixins.TimestampModelMixin, mixins.OwnerModelMixin
 ):
-    """Model for Response of ocurrence"""
-    def __init__(self, *args, **kwargs) -> None:
-        self.calculate_deadline = CalculateDeadline(
-            ocurrence=self.ocurrence_classification,
-            damage=self.damage_classification
-        )
-        super().__init__(*args, **kwargs)
 
     ocurrence = models.OneToOneField(
         'EventOcurrence',
         on_delete=models.PROTECT,
-        help_text='Ocorrência relacionada',
+        help_text='Informe a Ocorrência relacionada',
         related_name='response_ocurrence',
     )
     ocurrence_description = models.ForeignKey(
         OcurrenceDescription,
         on_delete=models.PROTECT,
-        help_text='Descrição da Ocorrência'
+        help_text='Selecione a descrição da ocorrência'
     )
     meta = models.OneToOneField(
         Metas,
         on_delete=models.PROTECT,
-        help_text='Meta',
+        help_text='Meta Anvisa',
         related_name='meta_response_ocurrence'
     )
     description = models.TextField(
-        help_text='Descrição da tratativa'
+        help_text='Realize a descrição da tratativa'
     )
     deadline_response = models.DateField(
         blank=True,
@@ -81,6 +75,11 @@ class ResponseOcurrence(
         help_text='Classificação do Dano',
         related_name='damage_response_ocurrence',
     )
+    
+    calculate_deadline = CalculateDeadline(
+                ocurrence=ocurrence_classification,
+                damage=damage_classification
+    )
 
     class Meta:  # pylint: disable=too-few-public-methods
         """Meta options for ResponseOcurrence model"""
@@ -112,7 +111,7 @@ class ResponseOcurrence(
             realizou a tratativa da ocorrência {self.ocurrence}
         """
 
-    def save(self, *args, **kwargs):
+    def save(self, *args: dict[Any], **kwargs:dict[Any]):
         """
         Override the save method to calculate the deadline automatically 
         if the 'deadline_response' field is not set.

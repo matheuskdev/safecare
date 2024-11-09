@@ -1,6 +1,7 @@
 """Module models for events."""
 
 from django.db import models
+
 from events.models.gender_models import Gender
 from events.models.race_models import Race
 from utils import mixins

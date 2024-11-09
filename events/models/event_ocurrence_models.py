@@ -1,6 +1,7 @@
 """Module models for events."""
 
 from django.db import models
+
 from departments.models import Department
 from utils import mixins
 

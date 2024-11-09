@@ -1,29 +1,57 @@
 from typing import Any
-
 from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
-from django.views.generic import TemplateView
-from django.views.generic.edit import CreateView
-
+from django.views.generic.edit import FormView
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from events.models.event_ocurrence_models import EventOcurrence
 from events.models.response_ocurrence_models import ResponseOcurrence
+from events.forms.response_ocurrence_forms import ResponseOcurrenceForm
 
+class EventResponseOcurrenceCreateView(
+    LoginRequiredMixin,
+    PermissionRequiredMixin,
+    FormView,
+):
+    """
+    View to create a response for an event occurrence.
 
-class EventResponseOcurrenceCreateView(CreateView):
-    """Create a response for an occurrence"""
+    This view handles the creation of a response to an event occurrence. It first retrieves
+    the corresponding event occurrence based on the provided `ocurrence_id`, then associates
+    the response with that occurrence before saving the response.
+    """
     model = ResponseOcurrence
-    form_class = 'EventResponseOcurrenceForm'
+    form_class = ResponseOcurrenceForm
     template_name = 'response/events_form.html'
-    success_url = reverse_lazy('response_success')
+    success_url = reverse_lazy('events:response_success')
+    permission_required = "events.add_responseocurrence"
 
     def dispatch(self, request, *args, **kwargs):
-        # Recupera a ocorrência antes de criar a resposta
-        self.ocurrence = get_object_or_404(
-            EventOcurrence, id=kwargs['ocurrence_id']
-        )
+        """
+        Retrieves the event occurrence corresponding to the provided `ocurrence_id`
+        before processing the request.
+        """
+        ocurrence_id = self.kwargs.get('pk')
+        self.ocurrence = get_object_or_404(EventOcurrence, pk=ocurrence_id)
         return super().dispatch(request, *args, **kwargs)
 
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        """
+        Adds the event occurrence to the context, along with any existing responses.
+        """
+        context: dict = super().get_context_data(**kwargs)
+        context['ocurrence'] = self.ocurrence
+        context['responses'] = ResponseOcurrence.objects.filter(ocurrence=self.ocurrence)
+        return context
+
     def form_valid(self, form):
-        # Associa a resposta com a ocorrência recuperada
-        form.instance.ocurrence = self.ocurrence
+        """
+        Associates the response with the retrieved event occurrence and saves it.
+        """
+        response = form.save(commit=False)
+        response.ocurrence = self.ocurrence
+        response.author = self.request.user
+        response.save()
         return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse_lazy('events:response_success')

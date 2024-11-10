@@ -52,7 +52,7 @@ class EventResponseOcurrenceCreateView(
         context: dict = super().get_context_data(**kwargs)
         context['ocurrence'] = self.ocurrence
         context['responses'] = ResponseOcurrence.objects.filter(ocurrence=self.ocurrence)
-        context['patient'] = self.patient
+        if self.ocurrence.patient_involved: context['patient'] = self.patient
         return context
 
     def form_valid(self, form):

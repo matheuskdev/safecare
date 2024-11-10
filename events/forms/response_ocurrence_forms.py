@@ -48,7 +48,7 @@ class ResponseOcurrenceForm(forms.ModelForm):
             'meta': 'Meta',
             'description': 'Descrição',
             'send_manager': 'Enviado para o Gestor ?',
-            'event_investigation': 'Investigaçã ?',
+            'event_investigation': 'Investigação ?',
             'incident_classification': 'Classificação do Incidente',
             'ocurrence_classification': 'Classificação da Ocorrência',
             'damage_classification': 'Classificação do Dano',

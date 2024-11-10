@@ -6,6 +6,7 @@ from django.shortcuts import get_object_or_404
 from django.urls import reverse, reverse_lazy
 from django.views.generic import TemplateView
 from django.views.generic.edit import CreateView
+from django.views.generic.list import ListView
 
 from events.forms.event_ocurrence_forms import EventOcurrenceForm
 from events.forms.event_patient_forms import EventPatientForm
@@ -136,3 +137,13 @@ class EventSucessTemplateView(TemplateView):
         context['event'] = event
         # context['pk'] = self.kwargs.get('pk')
         return context
+
+
+class EventListView(ListView):
+    model = EventOcurrence
+    template_name = "event/events_list.html"
+    context_object_name = "events"
+    paginate_by = 5
+
+    def get_queryset(self):
+        return EventOcurrence.objects.filter(response_ocurrence__isnull=True)

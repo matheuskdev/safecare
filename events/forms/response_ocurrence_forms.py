@@ -7,7 +7,6 @@ class ResponseOcurrenceForm(forms.ModelForm):
     class Meta:
         model = ResponseOcurrence
         fields = [
-            'ocurrence',
             'meta',
             'description',
             'send_manager',

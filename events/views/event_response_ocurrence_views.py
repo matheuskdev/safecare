@@ -7,6 +7,7 @@ from django.contrib.auth.mixins import (
 from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic.edit import FormView
+from django.views.generic.list import ListView
 
 from events.forms.response_ocurrence_forms import ResponseOcurrenceForm
 from events.models.event_ocurrence_models import EventOcurrence
@@ -63,7 +64,12 @@ class EventResponseOcurrenceCreateView(
         response.ocurrence = self.ocurrence
         response.author = self.request.user
         response.save()
+        print(response)
         return super().form_valid(form)
-
+    def form_invalid(self, form):
+        # Exibe erros de formulário para depuração
+        print("Form inválido:", form.errors)
+        return super().form_invalid(form)
     def get_success_url(self):
         return reverse_lazy('events:response_success')
+

@@ -27,6 +27,8 @@
 
   <!-- Template Main CSS File -->
   <link href="{% static 'assets/css/style.css' %}" rel="stylesheet">
+  {% block extra_css %}
+  {% endblock extra_css %}
 </head>
 
 <body class="toggle-sidebar">
@@ -44,7 +46,7 @@
     <div class="pagetitle">
         <h1>
             {% block page_name %}
-              Page Name
+              
             {% endblock page_name %}
         </h1>
       </div>

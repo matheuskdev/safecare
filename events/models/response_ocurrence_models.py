@@ -32,7 +32,7 @@ class ResponseOcurrence(
         on_delete=models.PROTECT,
         help_text='Selecione a descrição da ocorrência'
     )
-    meta = models.OneToOneField(
+    meta = models.ForeignKey(
         Metas,
         on_delete=models.PROTECT,
         help_text='Meta Anvisa',
@@ -77,10 +77,6 @@ class ResponseOcurrence(
         related_name='damage_response_ocurrence',
     )
     
-    calculate_deadline = CalculateDeadline(
-                ocurrence=ocurrence_classification,
-                damage=damage_classification
-    )
 
     class Meta:  # pylint: disable=too-few-public-methods
         """Meta options for ResponseOcurrence model"""
@@ -125,6 +121,16 @@ class ResponseOcurrence(
             *args: Additional positional arguments to be passed to the parent save method.
             **kwargs: Additional keyword arguments to be passed to the parent save method.
         """
+        ocurrence_classification = self.ocurrence.classification
+        damage_classification = self.damage.classification
+
+        # Use as instâncias para calcular o prazo
+        calculate_deadline = CalculateDeadline(
+            ocurrence=ocurrence_classification,
+            damage=damage_classification
+        )
+    
+        days_of_response = calculate_deadline.calculate()
         if not self.deadline_response:
             days_of_response = self.calculate_deadline.calculate()
             if days_of_response > 0:

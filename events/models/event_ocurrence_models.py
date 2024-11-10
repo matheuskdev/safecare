@@ -3,6 +3,7 @@
 from django.db import models
 
 from departments.models import Department
+from events.models.event_patient_models import EventPatient
 from utils import mixins
 
 
@@ -47,7 +48,7 @@ class EventOcurrence(  # type: ignore[misc]
     ocurrence_date = models.DateField(help_text='Data da ocorrência')
     ocurrence_time = models.TimeField(help_text='Hora da ocorrência')
     patient = models.ForeignKey(
-        'EventPatient',
+        EventPatient,
         on_delete=models.SET_NULL,
         null=True,
         blank=True,

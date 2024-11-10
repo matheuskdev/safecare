@@ -1,12 +1,19 @@
 from typing import Any
+
+from django.contrib.auth.mixins import (
+    LoginRequiredMixin,
+    PermissionRequiredMixin,
+)
 from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic.edit import FormView
-from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.views.generic.list import ListView
+
+from events.forms.response_ocurrence_forms import ResponseOcurrenceForm
 from events.models.event_ocurrence_models import EventOcurrence
 from events.models.event_patient_models import EventPatient
 from events.models.response_ocurrence_models import ResponseOcurrence
-from events.forms.response_ocurrence_forms import ResponseOcurrenceForm
+
 
 class EventResponseOcurrenceCreateView(
     LoginRequiredMixin,
@@ -46,7 +53,7 @@ class EventResponseOcurrenceCreateView(
         context: dict = super().get_context_data(**kwargs)
         context['ocurrence'] = self.ocurrence
         context['responses'] = ResponseOcurrence.objects.filter(ocurrence=self.ocurrence)
-        context['patient'] = self.patient
+        if self.ocurrence.patient_involved: context['patient'] = self.patient
         return context
 
     def form_valid(self, form):
@@ -57,7 +64,12 @@ class EventResponseOcurrenceCreateView(
         response.ocurrence = self.ocurrence
         response.author = self.request.user
         response.save()
+        print(response)
         return super().form_valid(form)
-
+    def form_invalid(self, form):
+        # Exibe erros de formulário para depuração
+        print("Form inválido:", form.errors)
+        return super().form_invalid(form)
     def get_success_url(self):
         return reverse_lazy('events:response_success')
+

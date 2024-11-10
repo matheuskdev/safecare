@@ -16,10 +16,17 @@
     </a>
     <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
         <li>
-        <a href="#">
-            <i class="bi bi-circle"></i><span>Formulário</span>
+        <a href="{% url 'events:home'%}">
+            <i class="bi bi-circle"></i><span>Criar Notificação</span>
         </a>
         </li>
+        {% if perms.add_responseocurrence %}
+        <li>
+            <a href="#">
+                <i class="bi bi-circle"></i><span>Em construção</span>
+            </a>
+        </li>
+        {% endif %}
     </ul>
     </li>
     <!-- End Forms Nav -->
@@ -55,7 +62,7 @@
     <!-- End F.A.Q Page Nav -->
 
     <li class="nav-item">
-    <a class="nav-link collapsed" href="admin">
+    <a class="nav-link collapsed" href="{% url 'admin:index' %}">
         <i class="bi bi-box-arrow-in-right"></i>
         <span>Login</span>
     </a>

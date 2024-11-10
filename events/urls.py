@@ -19,9 +19,10 @@ from django.urls import path
 from events.views.event_ocurrence_views import (
     EventOcurrenceCreateView,
     EventSucessTemplateView,
+    EventListView,
 )
 from events.views.event_response_ocurrence_views import (
-    EventResponseOcurrenceCreateView
+    EventResponseOcurrenceCreateView,
 )
 
 app_name = 'events'
@@ -38,4 +39,9 @@ urlpatterns = [
         EventResponseOcurrenceCreateView.as_view(),
         name='response_event_create'
     ),
+    path(
+        'events/no_response/',
+        EventListView.as_view(),
+        name='event_no_response'
+    )
 ]

@@ -1,0 +1,88 @@
+{% extends 'components/_tables.html' %}
+
+{% block columns %}
+  <th scope="col">ID</th>
+  <th scope="col">Objeto</th>
+  <th scope="col">Setor</th>
+  <th scope="col">Data Inicial</th>
+  <th scope="col">Data Final</th>
+  <th scope="col">Ações</th>
+{% endblock columns %} 
+
+{% block lines %} 
+{% for contract in contracts %}
+  <tr>
+    <td>
+      <a
+        href="{% url 'contracts:contract_detail' contract.id %}"
+        class="text-primary fw-bold"
+      >
+        {{ contract.id }}
+      </a>
+    </td>
+    <td>{{ contract.subject }}</td>
+    <td>{{ contract.department }}</td>
+    <td>{{ contract.start_date|date:"d/m/Y" }}</td>
+    <td>{{ contract.end_date|date:"d/m/Y" }}</td>
+    <td>
+      <div class="d-flex gap-2 justify-content-center">
+        <a
+          href="{% url 'contracts:contract_detail' contract.id %}"
+          class="btn btn-info btn-sm"
+          title="Visualizar"
+          data-toggle="tooltip" data-placement="top"
+          data-bs-toggle="tooltip"
+        >
+          <i class="fa fa-eye"></i>
+        </a>
+
+        {% if perms.contracts.change_contract %}
+        <a
+          href="{% url 'contracts:contract_update' contract.id %}"
+          class="btn btn-warning btn-sm"
+          title="Editar"
+          data-toggle="tooltip" data-placement="top"
+          data-bs-toggle="tooltip"
+        >
+          <i class="fa fa-pencil"></i>
+        </a>
+        {% endif %} 
+        {% if perms.contracts.delete_contract %}
+        <a
+          href="{% url 'contracts:contract_delete' contract.id %}"
+          class="btn btn-danger btn-sm"
+          title="Excluir"
+          data-toggle="tooltip" data-placement="top"
+          data-bs-toggle="tooltip"
+        >
+          <i class="fa fa-trash"></i>
+        </a>
+        {% endif %} 
+        {% if perms.addendums.add_addendum %}
+        <a
+          href="{% url 'addendums:addendum_create' contract.id %}"
+          class="btn btn-success btn-sm"
+          title="Adicionar Aditivo"
+          data-toggle="tooltip" data-placement="top"
+          data-bs-toggle="tooltip"
+        >
+          <i class="fa fa-folder"></i>
+        </a>
+        {% endif %} 
+        {% if perms.evaluations.add_evaluation %}
+        <a
+          href="{% url 'evaluations:evaluation_create' contract.id %}"
+          class="btn btn-success btn-sm"
+          title="Adicionar Avaliação"
+          data-toggle="tooltip" data-placement="top"
+          data-bs-toggle="tooltip"
+        >
+          <i class="fa fa-comment"></i>
+        </a>
+        {% endif %}
+      </div>
+    </td>
+  </tr>
+{% endfor %} 
+
+{% endblock lines %}

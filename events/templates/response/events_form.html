@@ -39,119 +39,84 @@
     </div>
 </div>
 
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title text-primary mb-4">Ficha de Tratativa de Ocorrências</h5>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h3>Respostas Existentes</h3>
-<ul>
-    {% for response in responses %}
-    <li>{{ response.author.username }}: {{ response.description }}</li>
-    {% empty %}
-    <li>Não há respostas ainda.</li>
-    {% endfor %}
-</ul>
-
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Enviar Resposta</button>
-</form>
-{% endblock content %}
-
-
-{% comment %}
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulário de Resposta à Ocorrência</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-
-<body>
-    <div class="container mt-5">
-        <h2>Formulário de Resposta à Ocorrência</h2>
-        <form method="post">
+        <!-- Floating Labels Form -->
+        <form class="row g-3" method="post">
             {% csrf_token %}
 
-            <!-- Ocorrência -->
-            <div class="mb-3">
-                <label for="id_ocurrence" class="form-label">{{ form.ocurrence.label }}</label>
-                {{ form.ocurrence }}
+            <!-- Ocorrência e Meta Anvisa -->
+            <div class="col-md-4">
+                <div class="form-floating">
+                    {{ form.meta }}
+                    <label for="floatingMeta"><i class="bi bi-list-check"></i> Meta Anvisa</label>
+                </div>
             </div>
 
-            <!-- Meta -->
-            <div class="mb-3">
-                <label for="id_meta" class="form-label">{{ form.meta.label }}</label>
-                {{ form.meta }}
-            </div>
+            <!--Enviado ao Gestor -->
 
-            <!-- Descrição -->
-            <div class="mb-3">
-                <label for="id_description" class="form-label">{{ form.description.label }}</label>
-                {{ form.description }}
-                <div class="form-text">Descrição da Tratativa</div>
-            </div>
-
-            <!-- Enviado para o Gestor? -->
-            <div class="mb-3">
-                <label class="form-label">{{ form.send_manager.label }}</label>
+            <div class="col-md-4">
                 <div class="form-check">
+                    <label class="form-check-label" for="floatingSendManager">Enviar ao Gestor?</label>
                     {{ form.send_manager }}
                 </div>
             </div>
 
             <!-- Investigação do Evento -->
-            <div class="mb-3">
-                <label class="form-label">{{ form.event_investigation.label }}</label>
+            <div class="col-4">
                 <div class="form-check">
+                    <label class="form-check-label" for="eventInvestigation">
+                        Investigar do Evento?
+                    </label>
                     {{ form.event_investigation }}
+                    
                 </div>
             </div>
 
-            <!-- Classificação do Incidente -->
-            <div class="mb-3">
-                <label for="id_incident_classification" class="form-label">{{ form.incident_classification.label
-                    }}</label>
-                {{ form.incident_classification }}
+            <!-- Classificações: Ocorrência, Incidente, Dano -->
+            <div class="col-md-4">
+                <div class="form-floating">
+                    {{ form.ocurrence_classification }}
+                    <label for="floatingOcurrenceClassification">Classificação da Ocorrência</label>
+                </div>
             </div>
 
-            <!-- Classificação da Ocorrência -->
-            <div class="mb-3">
-                <label for="id_ocurrence_classification" class="form-label">{{ form.ocurrence_classification.label
-                    }}</label>
-                {{ form.ocurrence_classification }}
+            <div class="col-md-4">
+                <div class="form-floating">
+                    {{ form.incident_classification }}
+                    <label for="floatingIncidentClassification">Classificação do Incidente</label>
+                </div>
             </div>
 
-            <!-- Classificação do Dano -->
-            <div class="mb-3">
-                <label for="id_damage_classification" class="form-label">{{ form.damage_classification.label }}</label>
-                {{ form.damage_classification }}
+            <div class="col-md-4">
+                <div class="form-floating">
+                    {{ form.damage_classification }}
+                    <label for="floatingDamageClassification">Classificação do Dano</label>
+                </div>
             </div>
 
-            <!-- Botão de envio -->
-            <button type="submit" class="btn btn-primary">Enviar</button>
+            <!-- Descrição da Tratativa -->
+            <div class="col-12">
+                <div class="form-floating">
+                    {{ form.description}}
+                    <label for="floatingDescription"><i class="bi bi-file-earmark-text"></i> Descrição da
+                        Tratativa</label>
+                </div>
+            </div>
+
+            <!-- Botões de ação -->
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary">
+                    <i class="bi bi-send"></i> Salvar Tratativa
+                </button>
+                <button type="reset" class="btn btn-secondary">
+                    <i class="bi bi-eraser"></i> Limpar
+                </button>
+            </div>
         </form>
+        <!-- End Floating Labels Form -->
     </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-
-</html>
-{% endcomment %}
+</div>
+{% endblock content %}

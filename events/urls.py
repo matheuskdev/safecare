@@ -17,9 +17,9 @@ Including another URLconf
 from django.urls import path
 
 from events.views.event_ocurrence_views import (
+    EventListView,
     EventOcurrenceCreateView,
     EventSucessTemplateView,
-    EventListView,
 )
 from events.views.event_response_ocurrence_views import (
     EventResponseOcurrenceCreateView,

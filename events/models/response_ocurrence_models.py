@@ -121,11 +121,10 @@ class ResponseOcurrence(
             *args: Additional positional arguments to be passed to the parent save method.
             **kwargs: Additional keyword arguments to be passed to the parent save method.
         """
-        ocurrence_classification = self.ocurrence.classification
-        damage_classification = self.damage.classification
+        ocurrence_classification = self.ocurrence_classification.classification
+        damage_classification = self.damage_classification.classification
 
-        # Use as instâncias para calcular o prazo
-        calculate_deadline = CalculateDeadline(
+        calculate_deadline: CalculateDeadline = CalculateDeadline(
             ocurrence=ocurrence_classification,
             damage=damage_classification
         )

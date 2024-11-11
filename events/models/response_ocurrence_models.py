@@ -107,31 +107,30 @@ class ResponseOcurrence(
             {self.owner.username}
             realizou a tratativa da ocorrência {self.ocurrence}
         """
+def save(self, *args: dict[Any], **kwargs: dict[Any]):
+    """
+    Override the save method to calculate the deadline automatically 
+    if the 'deadline_response' field is not set.
 
-    def save(self, *args: dict[Any], **kwargs:dict[Any]):
-        """
-        Override the save method to calculate the deadline automatically 
-        if the 'deadline_response' field is not set.
+    This method calculates the response deadline based on predefined 
+    business logic and assigns it to the 'deadline_response' field before 
+    saving the model instance.
 
-        This method calculates the response deadline based on predefined 
-        business logic and assigns it to the 'deadline_response' field before 
-        saving the model instance.
+    Args:
+        *args: Additional positional arguments to be passed to the parent save method.
+        **kwargs: Additional keyword arguments to be passed to the parent save method.
+    """
 
-        Args:
-            *args: Additional positional arguments to be passed to the parent save method.
-            **kwargs: Additional keyword arguments to be passed to the parent save method.
-        """
-        ocurrence_classification = self.ocurrence_classification.classification
-        damage_classification = self.damage_classification.classification
+    calculate_deadline: CalculateDeadline = CalculateDeadline(
+        ocurrence=self.ocurrence_classification,
+        damage=self.damage_classification
+    )
 
-        calculate_deadline: CalculateDeadline = CalculateDeadline(
-            ocurrence=ocurrence_classification,
-            damage=damage_classification
-        )
+    # Calcula o prazo de resposta com base nas classificações
+    days_of_response = calculate_deadline.calculate()
+
+    if not self.deadline_response:
+        if days_of_response > 0:
+            self.deadline_response = timezone.now().date() + timedelta(days=days_of_response)
     
-        days_of_response = calculate_deadline.calculate()
-        if not self.deadline_response:
-            days_of_response = self.calculate_deadline.calculate()
-            if days_of_response > 0:
-                self.deadline_response = timezone.now().date() + timedelta(days=days_of_response)
-        super().save(*args, **kwargs)
+    super().save(*args, **kwargs)

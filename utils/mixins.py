@@ -14,8 +14,8 @@ class TimestampModelMixin(models.Model):
     """
     Abstract model mixin that provides self-managed timestamp fields.
 
-    This mixin adds `created_at` and `updated_at` fields to any model 
-    that inherits from it, automatically setting these fields when the 
+    This mixin adds `created_at` and `updated_at` fields to any model
+    that inherits from it, automatically setting these fields when the
     model instance is created or updated.
 
     Attributes:
@@ -31,7 +31,6 @@ class TimestampModelMixin(models.Model):
 
     class Meta:
         abstract = True
-
 
 
 class SoftDeleteModelMixin(models.Model):
@@ -73,13 +72,12 @@ class SoftDeleteModelMixin(models.Model):
         abstract = True
 
 
-
 class SoftDeleteViewMixin:
     """
     View mixin that overrides the delete method to perform a soft delete.
 
-    This mixin is intended for use with class-based views. It modifies 
-    the default behavior of the delete method to use soft delete instead 
+    This mixin is intended for use with class-based views. It modifies
+    the default behavior of the delete method to use soft delete instead
     of permanently removing the object from the database.
 
     Methods:
@@ -97,12 +95,11 @@ class SoftDeleteViewMixin:
         return self.delete(request, *args, **kwargs)
 
 
-
 class OwnerModelMixin(models.Model):
     """
     Abstract model mixin that adds an `owner` field.
 
-    This mixin associates the model instance with a user, making it 
+    This mixin associates the model instance with a user, making it
     possible to track ownership of objects.
 
     Attributes:
@@ -112,18 +109,19 @@ class OwnerModelMixin(models.Model):
         abstract: This is an abstract base class and won't be used to create any database table.
     """
 
-    owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    owner = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE
+    )
 
     class Meta:
         abstract = True
-
 
 
 class OwnerUserMixin:
     """
     View mixin that assigns the current user as the owner of a model instance.
 
-    This mixin is used to automatically set the `owner` attribute of 
+    This mixin is used to automatically set the `owner` attribute of
     a model instance when a form is successfully validated.
 
     Methods:
@@ -136,14 +134,13 @@ class OwnerUserMixin:
         return super().form_valid(form)
 
 
-
 class DepartmentListFilterMixin:
     """
     Mixin to filter querysets based on the user's department.
 
-    This mixin filters objects based on the user's department. If the 
-    user belongs to the "Administração" department, all objects are 
-    returned. Otherwise, only objects associated with the user's 
+    This mixin filters objects based on the user's department. If the
+    user belongs to the "Administração" department, all objects are
+    returned. Otherwise, only objects associated with the user's
     department or owned by the user are included.
 
     Methods:
@@ -186,13 +183,12 @@ class DepartmentListFilterMixin:
             return super().handle_no_permission()
 
 
-
 class DepartmentPermissionMixin:
     """
     Mixin to check if the user has permission to access an object.
 
-    This mixin ensures that the user can only access objects they own 
-    or are associated with through their department. Users in the 
+    This mixin ensures that the user can only access objects they own
+    or are associated with through their department. Users in the
     "Administração" department have access to all objects.
 
     Methods:
@@ -209,8 +205,9 @@ class DepartmentPermissionMixin:
             return HttpResponseRedirect(reverse("home"))
 
         is_owner = request.user == obj.owner
-        is_department_admin = "Administração" in user_profile.departments.values_list(
-            "name", flat=True
+        is_department_admin = (
+            "Administração"
+            in user_profile.departments.values_list("name", flat=True)
         )
         is_in_department = hasattr(self.model, "department") and str(
             obj.department
@@ -227,7 +224,8 @@ class DepartmentPermissionMixin:
             or is_department_in_owner_dep
         ):
             messages.error(
-                request, "Você não tem nível de permissão para acessar este recurso."
+                request,
+                "Você não tem nível de permissão para acessar este recurso.",
             )
             return HttpResponseRedirect(reverse("home"))
 

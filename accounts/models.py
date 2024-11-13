@@ -72,13 +72,13 @@ class User(AbstractBaseUser, PermissionsMixin):
     """
     Custom user model for the application.
 
-    This model extends Django's AbstractBaseUser and PermissionsMixin to provide 
-    additional fields and functionality, including support for email as the 
+    This model extends Django's AbstractBaseUser and PermissionsMixin to provide
+    additional fields and functionality, including support for email as the
     primary identifier and customizable user attributes.
 
     Attributes:
         email (EmailField): The user's email address, which must be unique.
-        username (CharField): The user's username, which must be unique and have 
+        username (CharField): The user's username, which must be unique and have
                               a minimum length of 4 characters.
         first_name (CharField): The user's first name, optional.
         last_name (CharField): The user's last name, optional.
@@ -112,10 +112,12 @@ class User(AbstractBaseUser, PermissionsMixin):
     username = models.CharField(
         max_length=18,
         unique=True,
-        validators=[MinLengthValidator(
-            limit_value=4,
-            message="O nome de usuário deve ter no mínimo 4 caracteres.",
-        )],
+        validators=[
+            MinLengthValidator(
+                limit_value=4,
+                message="O nome de usuário deve ter no mínimo 4 caracteres.",
+            )
+        ],
     )
     first_name = models.CharField(max_length=30, blank=True)
     last_name = models.CharField(max_length=30, blank=True)
@@ -132,7 +134,9 @@ class User(AbstractBaseUser, PermissionsMixin):
         blank=True,
     )
 
-    departments = models.ManyToManyField(Department, related_name="users", blank=True)
+    departments = models.ManyToManyField(
+        Department, related_name="users", blank=True
+    )
 
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
@@ -148,6 +152,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     class Meta:
         """Meta options for the User model."""
+
         ordering = ["email"]
         verbose_name = "Usuario"
         verbose_name_plural = "Usuarios"
@@ -155,15 +160,19 @@ class User(AbstractBaseUser, PermissionsMixin):
             models.Index(fields=["email"]),
         ]
         constraints = [
-            models.UniqueConstraint(fields=["email"], name="unique_user_email"),
-            models.UniqueConstraint(fields=["username"], name="unique_user_username"),
+            models.UniqueConstraint(
+                fields=["email"], name="unique_user_email"
+            ),
+            models.UniqueConstraint(
+                fields=["username"], name="unique_user_username"
+            ),
         ]
 
     def __str__(self):
         """
         Return the user's email address as a string.
 
-        This method provides a string representation of the user, typically used 
+        This method provides a string representation of the user, typically used
         in admin interfaces and other textual outputs.
 
         Returns:

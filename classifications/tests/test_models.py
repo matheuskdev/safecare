@@ -10,23 +10,23 @@ class IncidentClassificationModelTest(SetUpInitial):
     def setUp(self):
         # Criar um objeto de IncidentClassification
         self.ic1 = IncidentClassification.objects.create(
-            classification='Médio'
+            classification="Médio"
         )
-        self.ic2 = IncidentClassification.objects.create(classification='Alta')
+        self.ic2 = IncidentClassification.objects.create(classification="Alta")
         self.ic3 = IncidentClassification.objects.create(
-            classification='Baixa'
+            classification="Baixa"
         )
 
     def test_create_incident_classification(self):
         """Testa se a classificação de incidente é criada corretamente."""
         self.assertEqual(
             self.ic1.classification,
-            'Médio',
+            "Médio",
         )
 
     def test_incident_classification_str(self):
         """Testa o método __str__ do modelo IncidentClassification."""
-        self.assertEqual(str(self.ic1), 'Médio')
+        self.assertEqual(str(self.ic1), "Médio")
 
     def test_incident_classification_ordering(self):
         """Testa se o modelo é ordenado corretamente pelo campo 'classification'."""
@@ -41,25 +41,25 @@ class OcurrenceClassificationModelTest(SetUpInitial):
     def setUp(self):
         # Criar um objeto de OcurrenceClassification
         self.oc1 = OcurrenceClassification.objects.create(
-            classification='Médio'
+            classification="Médio"
         )
         self.oc2 = OcurrenceClassification.objects.create(
-            classification='Leve'
+            classification="Leve"
         )
         self.oc3 = OcurrenceClassification.objects.create(
-            classification='Grave'
+            classification="Grave"
         )
 
     def test_create_ocurrence_classification(self):
         """Testa se a classificação de ocorrência é criada corretamente."""
         self.assertEqual(
             self.oc1.classification,
-            'Médio',
+            "Médio",
         )
 
     def test_ocurrence_classification_str(self):
         """Testa o método __str__ do modelo OcurrenceClassification."""
-        self.assertEqual(str(self.oc1), 'Médio')
+        self.assertEqual(str(self.oc1), "Médio")
 
     def test_ocurrence_classification_ordering(self):
         """Testa se o modelo é ordenado corretamente pelo campo 'classification'."""
@@ -72,22 +72,22 @@ class OcurrenceClassificationModelTest(SetUpInitial):
 class DamageClassificationModelTest(SetUpInitial):
     def setUp(self):
         # Criar um objeto de DamageClassification
-        self.dc1 = DamageClassification.objects.create(classification='Leve')
+        self.dc1 = DamageClassification.objects.create(classification="Leve")
         self.dc2 = DamageClassification.objects.create(
-            classification='Moderado'
+            classification="Moderado"
         )
-        self.dc3 = DamageClassification.objects.create(classification='Severo')
+        self.dc3 = DamageClassification.objects.create(classification="Severo")
 
     def test_create_damage_classification(self):
         """Testa se a classificação de dano é criada corretamente."""
         self.assertEqual(
             self.dc1.classification,
-            'Leve',
+            "Leve",
         )
 
     def test_damage_classification_str(self):
         """Testa o método __str__ do modelo DamageClassification."""
-        self.assertEqual(str(self.dc1), 'Leve')
+        self.assertEqual(str(self.dc1), "Leve")
 
     def test_damage_classification_ordering(self):
         """Testa se o modelo é ordenado corretamente pelo campo 'classification'."""

@@ -12,8 +12,8 @@ class Department(
     """
     Model representing a department within the organization.
 
-    This model stores information about a department, including its name, description, 
-    and associated constraints. It also includes functionality for tracking timestamps 
+    This model stores information about a department, including its name, description,
+    and associated constraints. It also includes functionality for tracking timestamps
     and ownership, as well as soft deletion.
 
     Inherits from:
@@ -43,7 +43,7 @@ class Department(
         max_length=255,
         unique=True,
         help_text="Nome do departamento. Deve ser único.",
-        validators=[validators.validate_not_empty]
+        validators=[validators.validate_not_empty],
     )
     description = models.CharField(
         max_length=255,
@@ -54,6 +54,7 @@ class Department(
 
     class Meta:
         """Meta options for Department model."""
+
         ordering = ["name"]
         verbose_name = "Departamento"
         verbose_name_plural = "Departamentos"
@@ -62,8 +63,7 @@ class Department(
         ]
         constraints = [
             models.UniqueConstraint(
-                fields=["name"],
-                name="unique_department_name"
+                fields=["name"], name="unique_department_name"
             ),
         ]
 
@@ -86,7 +86,7 @@ class Department(
         """
         Return a string representation of the department.
 
-        This method returns the name of the department, which is used for easy display in the 
+        This method returns the name of the department, which is used for easy display in the
         admin interface and other textual representations.
 
         Returns:

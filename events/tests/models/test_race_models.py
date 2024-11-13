@@ -10,9 +10,7 @@ class RaceModelTest(SetUpInitial):
     def setUp(self):
         super().setUp()
         # Criar um objeto Race para ser usado nos testes
-        self.race = Race.objects.create(
-            name="Branca"
-        )
+        self.race = Race.objects.create(name="Branca")
 
     def test_create_race(self):
         """Testa se o objeto Race é criado corretamente."""
@@ -32,4 +30,11 @@ class RaceModelTest(SetUpInitial):
         race1 = Race.objects.create(name="Pardo")
         race2 = Race.objects.create(name="Indigena")
         races = Race.objects.all()
-        self.assertEqual(list(races), [self.race, race2, race1, ])  # Ordenado por 'name'
+        self.assertEqual(
+            list(races),
+            [
+                self.race,
+                race2,
+                race1,
+            ],
+        )  # Ordenado por 'name'

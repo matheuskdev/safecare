@@ -9,4 +9,4 @@ django.setup()
 User = get_user_model()
 
 if not User.objects.filter(username="admin").exists():
-    User.objects.create_superuser("admin@example.com", "admin123")
+    User.objects.create_superuser("matheuskdev@teste.com", "admin123")

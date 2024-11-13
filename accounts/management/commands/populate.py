@@ -10,16 +10,25 @@ class Command(BaseCommand):
     def handle(self, *args, **kwargs):
 
         departments = [
-            {"name": " Administração", "description": "Departamento Administrativo"},
+            {
+                "name": " Administração",
+                "description": "Departamento Administrativo",
+            },
             {"name": "Financeiro", "description": "Departamento Financeiro"},
             {"name": "Recursos Humanos", "description": "Departamento de RH"},
-            {"name": "TI", "description": "Departamento de Tecnologia da Informação"},
+            {
+                "name": "TI",
+                "description": "Departamento de Tecnologia da Informação",
+            },
         ]
 
         for dept_data in departments:
             department, created = Department.objects.get_or_create(
                 name=dept_data["name"],
-                defaults={"description": dept_data["description"], "owner_id": 1},
+                defaults={
+                    "description": dept_data["description"],
+                    "owner_id": 1,
+                },
             )
             if created:
                 self.stdout.write(
@@ -29,7 +38,9 @@ class Command(BaseCommand):
                 )
             else:
                 self.stdout.write(
-                    self.style.WARNING(f'Department "{department.name}" already exists.')
+                    self.style.WARNING(
+                        f'Department "{department.name}" already exists.'
+                    )
                 )
 
         User = get_user_model()
@@ -38,5 +49,7 @@ class Command(BaseCommand):
         user.save()
 
         self.stdout.write(
-            self.style.SUCCESS("Departments associated with the user successfully!")
+            self.style.SUCCESS(
+                "Departments associated with the user successfully!"
+            )
         )

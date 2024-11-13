@@ -17,14 +17,14 @@ class PopulateCommandTest(TestCase):
         """
         User = get_user_model()
         self.user = User.objects.create_user(
-            username='admin', email='admin@example.com', password='password'
+            username="admin", email="admin@example.com", password="password"
         )
 
     def test_populate_command(self):
         """
         Test that the 'populate' command runs without errors and creates the departments correctly.
         """
-        call_command('populate')
+        call_command("populate")
         departments = Department.objects.all()
         self.assertEqual(departments.count(), 4)
         self.assertEqual(self.user.departments.count(), 4)
@@ -34,6 +34,8 @@ class PopulateCommandTest(TestCase):
         """
         Test that the 'populate' command does not recreate existing departments.
         """
-        Department.objects.create(name="TI", description="Test Department", owner_id=1)
-        call_command('populate')
+        Department.objects.create(
+            name="TI", description="Test Department", owner_id=1
+        )
+        call_command("populate")
         self.assertEqual(Department.objects.filter(name="TI").count(), 1)

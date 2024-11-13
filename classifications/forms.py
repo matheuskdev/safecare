@@ -11,48 +11,30 @@ class IncidentClassificationForm(forms.ModelForm):
 
     class Meta:
         model = IncidentClassification
-        fields = [
-            'classification'
-        ]
+        fields = ["classification"]
         widgets = {
-            'classification': forms.Select(
-                attrs={'class': 'form-select'}
-            )
+            "classification": forms.Select(attrs={"class": "form-select"})
         }
-        labels = {
-            'classification': 'Classificação do Incidente'
-        }
+        labels = {"classification": "Classificação do Incidente"}
 
 
 class OcurrenceClassification(forms.ModelForm):
 
     class Meta:
         model = OcurrenceClassification
-        fields = [
-            'classification'
-        ]
+        fields = ["classification"]
         widgets = {
-            'classification': forms.Select(
-                attrs={'class': 'form-select'}
-            )
+            "classification": forms.Select(attrs={"class": "form-select"})
         }
-        labels = {
-            'classification': 'Classificação da Ocorrência'
-        }
+        labels = {"classification": "Classificação da Ocorrência"}
 
 
 class DamageClassification(forms.ModelForm):
 
     class Meta:
         model = DamageClassification
-        fields = [
-            'classification'
-        ]
+        fields = ["classification"]
         widgets = {
-            'classification': forms.Select(
-                attrs={'class': 'form-select'}
-            )
+            "classification": forms.Select(attrs={"class": "form-select"})
         }
-        labels = {
-            'classification': 'Classificação do Dano'
-        }
+        labels = {"classification": "Classificação do Dano"}

@@ -1,4 +1,5 @@
 """Service for calculate deadline in model response_ocurrence_models"""
+
 from classifications.models import (
     DamageClassification,
     OcurrenceClassification,
@@ -26,9 +27,7 @@ class CalculateDeadline:
     """
 
     def __init__(
-            self,
-            ocurrence: OcurrenceClassification,
-            damage: DamageClassification
+        self, ocurrence: OcurrenceClassification, damage: DamageClassification
     ) -> None:
         """
         Initializes the CalculateDeadline instance with the provided occurrence and damage classifications.
@@ -44,12 +43,12 @@ class CalculateDeadline:
         """
         Calculates the deadline for response based on the occurrence and damage classifications.
 
-        The deadline is defined by adding a certain number of days according to the 
+        The deadline is defined by adding a certain number of days according to the
         classifications of the occurrence and the damage.
 
         Occurrence Classification:
             - "Improcedente": 1 day
-            - "Não conformidade", "Circustância de Risco", "Quebra de contratualização", 
+            - "Não conformidade", "Circustância de Risco", "Quebra de contratualização",
               "Desvio da Qualidade": 15 days
             - "Incidente sem dano": 10 days
 
@@ -69,11 +68,16 @@ class CalculateDeadline:
         if self.ocurrence_classification.classification == "Improcedente":
             days_of_response += 1
         elif self.ocurrence_classification.classification in [
-            "Não conformidade", "Circustância de Risco", 
-            "Quebra de contratualização", "Desvio da Qualidade"
+            "Não conformidade",
+            "Circustância de Risco",
+            "Quebra de contratualização",
+            "Desvio da Qualidade",
         ]:
             days_of_response += 15
-        elif self.ocurrence_classification.classification == "Incidente sem dano":
+        elif (
+            self.ocurrence_classification.classification
+            == "Incidente sem dano"
+        ):
             days_of_response += 10
 
         # Classificação do dano

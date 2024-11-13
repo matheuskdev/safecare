@@ -7,13 +7,13 @@ class Gender(models.Model):
     """
     Model representing gender.
 
-    This model defines a gender entity, storing the name of the gender 
-    with a text field and providing metadata for database indexing 
+    This model defines a gender entity, storing the name of the gender
+    with a text field and providing metadata for database indexing
     and ordering.
 
     Attributes:
         name (TextField): The name of the gender, limited to 255 characters.
-    
+
     Meta:
         ordering (list): Default ordering of gender objects by name.
         verbose_name (str): Human-readable name for the model.
@@ -24,29 +24,27 @@ class Gender(models.Model):
         __str__(): Returns the name of the gender as a string.
     """
 
-    name = models.TextField(
-        max_length=255,
-        help_text='Gênero'
-    )
+    name = models.TextField(max_length=255, help_text="Gênero")
 
     class Meta:  # pylint: disable=too-few-public-methods
         """Meta options for Gender model."""
-        ordering = ['name']
-        verbose_name = 'Gênero'
-        verbose_name_plural = 'Gêneros'
+
+        ordering = ["name"]
+        verbose_name = "Gênero"
+        verbose_name_plural = "Gêneros"
         indexes = [
-            models.Index(fields=['name']),
+            models.Index(fields=["name"]),
         ]
 
     def __str__(self) -> str:
         """
         Return a string representation of the gender.
 
-        This method returns the name of the gender, making it easy 
-        to display gender names in the admin interface and other 
+        This method returns the name of the gender, making it easy
+        to display gender names in the admin interface and other
         textual representations.
 
         Returns:
             str: The name of the gender.
         """
-        return f'{self.name}'
+        return f"{self.name}"

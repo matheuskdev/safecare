@@ -1,5 +1,11 @@
+from django.test import TestCase
 from django.utils import timezone
 
+from classifications.models import (
+    DamageClassification,
+    IncidentClassification,
+    OcurrenceClassification,
+)
 from departments.models import Department
 from events.models.event_ocurrence_models import EventOcurrence
 from events.models.event_patient_models import EventPatient
@@ -11,8 +17,17 @@ class EventModelsTest(SetUpInitial):
         super().setUp()
         self.reporting_department = Department.objects.get(id=1)
         self.notified_department = Department.objects.get(id=2)
+        self.incident_classification = IncidentClassification.objects.create(
+            classification="Incidente Grave"
+        )
+        self.ocurrence_classification = OcurrenceClassification.objects.create(
+            classification="Erro Médico"
+        )
+        self.damage_classification = DamageClassification.objects.create(
+            classification="Dano Permanente"
+        )
 
-        # Create a patient test
+        # Criando um paciente de teste
         self.patient = EventPatient.objects.create(
             patient_name="João da Silva",
             attendance=12345,

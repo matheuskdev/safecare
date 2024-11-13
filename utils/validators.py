@@ -7,8 +7,8 @@ def validate_not_empty(value: str) -> None:
     """
     Custom validation function to check if a value is empty.
 
-    This function ensures that the given value is not empty or composed 
-    solely of whitespace characters. If the value is empty, a 
+    This function ensures that the given value is not empty or composed
+    solely of whitespace characters. If the value is empty, a
     ValidationError is raised.
 
     Args:
@@ -20,5 +20,5 @@ def validate_not_empty(value: str) -> None:
     if not value.strip():
         raise ValidationError(
             "Este campo não pode estar vazio.",
-            params={'value': value},
+            params={"value": value},
         )

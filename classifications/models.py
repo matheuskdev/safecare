@@ -4,14 +4,13 @@ from utils import mixins
 
 
 class IncidentClassification(  # type: ignore[misc]
-    mixins.TimestampModelMixin,
-    mixins.SoftDeleteModelMixin
+    mixins.TimestampModelMixin, mixins.SoftDeleteModelMixin
 ):
     """
     Model representing an Incident Classification.
 
-    This model stores information about the classification of incidents, 
-    including the type of classification and associated metadata for ordering 
+    This model stores information about the classification of incidents,
+    including the type of classification and associated metadata for ordering
     and indexing.
 
     Inherits from:
@@ -19,7 +18,7 @@ class IncidentClassification(  # type: ignore[misc]
         SoftDeleteModelMixin: Allows for soft deletion of the classification.
 
     Attributes:
-        classification (CharField): The type of classification for the incident, 
+        classification (CharField): The type of classification for the incident,
                                      limited to 255 characters.
 
     Meta:
@@ -34,24 +33,24 @@ class IncidentClassification(  # type: ignore[misc]
     """
 
     classification = models.CharField(
-        max_length=255,
-        help_text="Tipo da classificação do incidente."
+        max_length=255, help_text="Tipo da classificação do incidente."
     )
 
     class Meta:
         """Meta options for IncidentClassification model."""
+
         ordering = ["classification"]
         verbose_name = "Classificação de Incidente"
         verbose_name_plural = "Classificações dos Incidentes"
         indexes = [
-            models.Index(fields=["classification"]), 
+            models.Index(fields=["classification"]),
         ]
 
     def __str__(self) -> str:
         """
         Return the classification type as a string.
 
-        This method provides a string representation of the incident classification, 
+        This method provides a string representation of the incident classification,
         which can be used for display in admin interfaces and other textual outputs.
 
         Returns:
@@ -61,14 +60,13 @@ class IncidentClassification(  # type: ignore[misc]
 
 
 class OcurrenceClassification(  # type: ignore[misc]
-    mixins.TimestampModelMixin,
-    mixins.SoftDeleteModelMixin
+    mixins.TimestampModelMixin, mixins.SoftDeleteModelMixin
 ):
     """
     Model representing an Ocurrence Classification.
 
-    This model stores information about the classification of occurrences, 
-    including the type of classification and associated metadata for ordering 
+    This model stores information about the classification of occurrences,
+    including the type of classification and associated metadata for ordering
     and indexing.
 
     Inherits from:
@@ -76,7 +74,7 @@ class OcurrenceClassification(  # type: ignore[misc]
         SoftDeleteModelMixin: Allows for soft deletion of the classification.
 
     Attributes:
-        classification (CharField): The type of classification for the occurrence, 
+        classification (CharField): The type of classification for the occurrence,
                                      limited to 255 characters.
 
     Meta:
@@ -91,24 +89,24 @@ class OcurrenceClassification(  # type: ignore[misc]
     """
 
     classification = models.CharField(
-        max_length=255,
-        help_text="Tipo da classificação da ocorrência."
+        max_length=255, help_text="Tipo da classificação da ocorrência."
     )
 
     class Meta:
         """Meta options for OcurrenceClassification model."""
+
         ordering = ["classification"]
         verbose_name = "Classificação de Ocorrência"
         verbose_name_plural = "Classificações das Ocorrências"
         indexes = [
-            models.Index(fields=["classification"]), 
+            models.Index(fields=["classification"]),
         ]
 
     def __str__(self) -> str:
         """
         Return the classification type as a string.
 
-        This method provides a string representation of the occurrence classification, 
+        This method provides a string representation of the occurrence classification,
         which can be used for display in admin interfaces and other textual outputs.
 
         Returns:
@@ -118,13 +116,12 @@ class OcurrenceClassification(  # type: ignore[misc]
 
 
 class DamageClassification(  # type: ignore[misc]
-    mixins.TimestampModelMixin,
-    mixins.SoftDeleteModelMixin
+    mixins.TimestampModelMixin, mixins.SoftDeleteModelMixin
 ):
     """
     Model representing a Damage Classification.
 
-    This model stores information about the classification of damage, including 
+    This model stores information about the classification of damage, including
     the type of classification and associated metadata for ordering and indexing.
 
     Inherits from:
@@ -132,7 +129,7 @@ class DamageClassification(  # type: ignore[misc]
         SoftDeleteModelMixin: Allows for soft deletion of the classification.
 
     Attributes:
-        classification (CharField): The type of classification for the damage, 
+        classification (CharField): The type of classification for the damage,
                                      limited to 255 characters.
 
     Meta:
@@ -147,24 +144,24 @@ class DamageClassification(  # type: ignore[misc]
     """
 
     classification = models.CharField(
-        max_length=255,
-        help_text="Tipo da classificação do dano."
+        max_length=255, help_text="Tipo da classificação do dano."
     )
 
     class Meta:
         """Meta options for DamageClassification model."""
+
         ordering = ["classification"]
         verbose_name = "Classificação de Dano"
         verbose_name_plural = "Classificações dos Danos"
         indexes = [
-            models.Index(fields=["classification"]), 
+            models.Index(fields=["classification"]),
         ]
 
     def __str__(self) -> str:
         """
         Return the classification type as a string.
 
-        This method provides a string representation of the damage classification, 
+        This method provides a string representation of the damage classification,
         which can be used for display in admin interfaces and other textual outputs.
 
         Returns:

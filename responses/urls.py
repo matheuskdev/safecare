@@ -15,28 +15,16 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 
-from typing import Literal
-
 from django.urls import path
 
-from events.views.event_ocurrence_views import (
-    EventListView,
-    EventOcurrenceCreateView,
-    EventSucessTemplateView,
-)
+from responses.views import EventResponseOcurrenceCreateView
 
-app_name: Literal["events"] = "events"
+app_name = "responses"
 
 urlpatterns = [
-    path("", EventOcurrenceCreateView.as_view(), name="eventocurrence_create"),
     path(
-        "events/<int:pk>/sucess/",
-        EventSucessTemplateView.as_view(),
-        name="eventocurrence_success",
-    ),
-    path(
-        "events/no_response/",
-        EventListView.as_view(),
-        name="eventocurrence_list",
+        "response_event/<int:pk>/",
+        EventResponseOcurrenceCreateView.as_view(),
+        name="responseocurrence_create",
     ),
 ]

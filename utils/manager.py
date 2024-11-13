@@ -5,8 +5,8 @@ class NonDeletedManager(models.Manager):
     """
     Custom Manager to filter out objects that are marked as deleted.
 
-    This manager overrides the default `get_queryset` method to exclude 
-    objects where the `is_deleted` attribute is set to True. It is 
+    This manager overrides the default `get_queryset` method to exclude
+    objects where the `is_deleted` attribute is set to True. It is
     useful for implementing soft delete functionality in your models.
 
     Inherits from:
@@ -20,7 +20,7 @@ class NonDeletedManager(models.Manager):
         """
         Return a queryset that excludes objects marked as deleted.
 
-        This method filters the queryset to include only objects where 
+        This method filters the queryset to include only objects where
         `is_deleted` is False.
 
         Returns:

@@ -4,6 +4,20 @@ from responses.models import ResponseOcurrence
 
 
 class ResponseOcurrenceForm(forms.ModelForm):
+    """
+    Form for creating and updating ResponseOcurrence instances.
+
+    This form is used to handle user input for creating or editing 
+    `ResponseOcurrence` objects. It customizes the appearance and behavior 
+    of the fields with specific widgets and labels for a better user experience.
+
+    Inherits from:
+        forms.ModelForm: Django's base class for model-based forms.
+
+    Attributes:
+        Meta (class): Contains metadata options for the form fields.
+    """
+
     class Meta:
         model = ResponseOcurrence
         fields = [
@@ -20,7 +34,7 @@ class ResponseOcurrenceForm(forms.ModelForm):
             "description": forms.Textarea(
                 attrs={
                     "class": "form-control",
-                    "placeholder": "Descrição da Trataiva",
+                    "placeholder": "Descrição da Tratativa",
                     "required": True,
                 }
             ),
@@ -44,8 +58,8 @@ class ResponseOcurrenceForm(forms.ModelForm):
             "ocurrence": "Ocorrência",
             "meta": "Meta",
             "description": "Descrição",
-            "send_manager": "Enviado para o Gestor ?",
-            "event_investigation": "Investigação ?",
+            "send_manager": "Enviado para o Gestor?",
+            "event_investigation": "Investigação?",
             "incident_classification": "Classificação do Incidente",
             "ocurrence_classification": "Classificação da Ocorrência",
             "damage_classification": "Classificação do Dano",

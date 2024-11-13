@@ -19,6 +19,30 @@ from utils import mixins
 
 
 class ResponseOcurrence(mixins.TimestampModelMixin, mixins.OwnerModelMixin):
+    """
+    Model representing a response to an occurrence in an event management system.
+
+    This model stores information related to the response of a specific occurrence, 
+    including its classifications, description, and whether it has been resolved, 
+    investigated, or sent to a manager.
+
+    Inherits from:
+        TimestampModelMixin: Provides timestamp fields for creation and modification.
+        OwnerModelMixin: Provides ownership tracking for the instance.
+
+    Attributes:
+        ocurrence (EventOcurrence): The related occurrence.
+        ocurrence_description (OcurrenceDescription): Detailed description of the occurrence.
+        meta (Metas): Meta information related to the response, based on Anvisa standards.
+        description (str): Description of the treatment or actions taken for the occurrence.
+        deadline_response (datetime.date): Deadline for responding to the occurrence.
+        resolved (bool): Indicates if the occurrence has been resolved.
+        send_manager (bool): Indicates if the response has been sent to a manager.
+        event_investigation (bool): Indicates if an investigation is ongoing for the event.
+        incident_classification (IncidentClassification): Classification of the incident.
+        ocurrence_classification (OcurrenceClassification): Classification of the occurrence.
+        damage_classification (DamageClassification): Classification of any damage caused.
+    """
 
     ocurrence = models.OneToOneField(
         EventOcurrence,
@@ -88,45 +112,39 @@ class ResponseOcurrence(mixins.TimestampModelMixin, mixins.OwnerModelMixin):
         """
         Return a string representation of the response occurrence.
 
-        This method returns a string that includes the owner's username and
-        the related occurrence, making it easier to display response occurrences
-        in textual representations such as the admin interface.
+        The string representation includes the owner's username and the
+        related occurrence to facilitate display in interfaces.
 
         Returns:
-            str: A string representation of the response occurrence.
-        """
-        return f"""
-            {self.owner.username}
-            realizou a tratativa da ocorrência {self.ocurrence}
+            str: A string representing the owner and the treated occurrence.
         """
 
+        return f"{self.owner.username} realizou a tratativa da ocorrência {self.ocurrence}"
 
-def save(self, *args: dict[Any], **kwargs: dict[Any]):
+
+def save(self, *args: dict[Any], **kwargs: dict[Any]) -> None:
     """
-    Override the save method to calculate the deadline automatically
-    if the 'deadline_response' field is not set.
+    Override the save method to automatically calculate the response deadline.
 
-    This method calculates the response deadline based on predefined
-    business logic and assigns it to the 'deadline_response' field before
-    saving the model instance.
+    This method checks if the 'deadline_response' field is unset. If it is,
+    it calculates the deadline based on predefined rules from `CalculateDeadline`
+    and assigns the result to 'deadline_response' before saving the model instance.
 
     Args:
-        *args: Additional positional arguments to be passed to the parent save method.
-        **kwargs: Additional keyword arguments to be passed to the parent save method.
+        *args (dict[Any]): Positional arguments passed to the parent save method.
+        **kwargs (dict[Any]): Keyword arguments passed to the parent save method.
     """
-
     calculate_deadline: CalculateDeadline = CalculateDeadline(
         ocurrence=self.ocurrence_classification,
         damage=self.damage_classification,
     )
 
-    # Calcula o prazo de resposta com base nas classificações
+    # Calculate the response deadline based on classifications
     days_of_response = calculate_deadline.calculate()
 
-    if not self.deadline_response:
-        if days_of_response > 0:
-            self.deadline_response = timezone.now().date() + timedelta(
-                days=days_of_response
-            )
+    if not self.deadline_response and days_of_response > 0:
+        self.deadline_response = timezone.now().date() + timedelta(
+            days=days_of_response
+        )
 
     super().save(*args, **kwargs)

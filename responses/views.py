@@ -25,7 +25,7 @@ class EventResponseOcurrenceCreateView(
     View to create a response for an event occurrence.
 
     This view handles the creation of a response for a specific event occurrence.
-    It retrieves the event occurrence and associates the response with it. 
+    It retrieves the event occurrence and associates the response with it.
     Only users with appropriate permissions can access this view.
 
     Inherits from:
@@ -61,7 +61,7 @@ class EventResponseOcurrenceCreateView(
 
     def dispatch(self, request, *args, **kwargs):
         """
-        Retrieves the event occurrence corresponding to the provided `ocurrence_id` 
+        Retrieves the event occurrence corresponding to the provided `ocurrence_id`
         before processing the request.
 
         Args:
@@ -82,7 +82,7 @@ class EventResponseOcurrenceCreateView(
 
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         """
-        Adds additional context for rendering the template, including the event 
+        Adds additional context for rendering the template, including the event
         occurrence and any existing responses.
 
         Args:

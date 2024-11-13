@@ -48,7 +48,7 @@ class EventOcurrenceAdmin(admin.ModelAdmin):
     """
     Admin view for managing EventOcurrence model entries.
 
-    Provides custom display of occurrences with patient involvement, 
+    Provides custom display of occurrences with patient involvement,
     related department information, and conditional read-only fields.
     """
 
@@ -73,7 +73,7 @@ class EventOcurrenceAdmin(admin.ModelAdmin):
         Args:
             request (HttpRequest): The request object.
             obj (EventOcurrence, optional): The occurrence being edited.
-        
+
         Returns:
             list: Fields that should be read-only.
         """

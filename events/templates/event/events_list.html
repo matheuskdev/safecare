@@ -1,62 +1,66 @@
 {% extends 'components/_tables.html' %}
 {% load static %}
-{% block subtitle %} Lista de Ocorrencias para Tratar {% endblock subtitle %}
-{% block link %} {% url 'events:home' %} {% endblock link %}
-{% block columns %}
-<th scope="col">ID</th>
-<th scope="col">Setor Notificante</th>
-<th scope="col">Setor Notificado</th>
-<th scope="col">Data da Ocorrencia</th>
-<th scope="col">Paciente/Ocorrencia</th>
-<th scope="col">Ações</th>
-{% endblock columns %}
-{% block lines %}
-{% for event in events %}
-<tr>
-    <td>
-        <a href="{% url 'events:response_event_create' event.id %}" class="text-primary fw-bold">
-            {{ event.id }}
-        </a>
-    </td>
-    <td>{{ event.reporting_department }}</td>
-    <td>{{ event.notified_department }}</td>
-    <td>{{ event.ocurrence_date|date:"d/m/Y" }}</td>
-    <td>
-        {% if event.patient_involved %}
-        <img src="{% static 'assets/img/patient.png' %}" alt="patient_involved_yes" width="50px">
-        Envolve paciente
-        {% else %}
-        <img src="{% static 'assets/img/ocurrence.png' %}" alt="patient_involved_no" width="50px">
-        Não envolve paciente
-        {% endif %}
-    </td>
-    <td>
-        <div class="d-flex gap-2 justify-content-center">
-            <a href="{% url 'events:response_event_create' event.id %}" class="btn btn-info btn-sm" title="Visualizar"
-                data-toggle="tooltip" data-placement="top" data-bs-toggle="tooltip">
-                <i class="bi bi-eye"></i>
-            </a>
 
-            {% if perms.events.change_eventocurrence %}
-            <a href="#" class="btn btn-warning btn-sm" title="Editar" data-toggle="tooltip" data-placement="top"
-                data-bs-toggle="tooltip">
-                <i class="bi bi-pencil"></i>
-            </a>
-            {% endif %}
-            {% if perms.events.delete_eventocurrence %}
-            <a href="#" class="btn btn-danger btn-sm" title="Excluir" data-toggle="tooltip" data-placement="top"
-                data-bs-toggle="tooltip">
-                <i class="bi bi-trash"></i>
-            </a>
-            {% endif %}
-            {% if perms.addendums.add_addendum %}
-            <a href="#" class="btn btn-success btn-sm" title="Adicionar Aditivo" data-toggle="tooltip"
-                data-placement="top" data-bs-toggle="tooltip">
-                <i class="bi bi-folder"></i>
-            </a>
-            {% endif %}
-        </div>
-    </td>
-</tr>
-{% endfor %}
+{% block subtitle %} Lista de Ocorrências para Tratar {% endblock subtitle %}
+{% comment %} {% block link %} {% url 'events:eventocurrence_create' %} {% endblock link %} {% endcomment %}
+{% block columns %}
+    <th>ID</th>
+    <th>Setor Notificante</th>
+    <th>Setor Notificado</th>
+    <th>Data da Ocorrência</th>
+    <th>Paciente/Ocorrência</th>
+    <th>Ações</th>
+{% endblock columns %}
+
+{% block lines %}
+    {% for event in events %}
+        <tr>
+            <td>
+                <a href="{% url 'responses:responseocurrence_create' event.id %}" class="text-primary fw-bold">
+                    {{ event.id }}
+                </a>
+            </td>
+            <td>{{ event.reporting_department }}</td>
+            <td>{{ event.notified_department }}</td>
+            <td>{{ event.ocurrence_date|date:"d/m/Y" }}</td>
+            <td>
+                {% if event.patient_involved %}
+                    <img src="{% static 'assets/img/patient.png' %}" alt="Involves patient">
+                    Envolve paciente
+                {% else %}
+                    <img src="{% static 'assets/img/ocurrence.png' %}" alt="No patient">
+                    Não envolve paciente
+                {% endif %}
+            </td>
+            <td>
+                <div class="d-flex gap-2 justify-content-center">
+                
+                <!--MODAL HERE -->
+                 <button type="button" class="btn btn-info btn-sm" title="Visualizar" 
+                    data-toggle="tooltip" 
+                    data-bs-toggle="modal" 
+                    data-bs-target="#viewEventModal" 
+                    data-id="{{ event.id }}">
+                    <i class="bi bi-eye"></i>S
+                </button>
+                    {% if perms.events.change_eventocurrence %}
+                        <a href="#" class="btn btn-warning btn-sm" title="Editar">
+                            <i class="bi bi-pencil"></i>
+                        </a>
+                    {% endif %}
+                    {% if perms.events.delete_eventocurrence %}
+                        <a href="#" class="btn btn-danger btn-sm" title="Excluir">
+                            <i class="bi bi-trash"></i>
+                        </a>
+                    {% endif %}
+                    {% if perms.addendums.add_addendum %}
+                        <a href="#" class="btn btn-success btn-sm" title="Adicionar Tratativa">
+                            <i class="bi bi-folder"></i>
+                        </a>
+                    {% endif %}
+                </div>
+            </td>
+        </tr>
+    {% endfor %}
 {% endblock lines %}
+

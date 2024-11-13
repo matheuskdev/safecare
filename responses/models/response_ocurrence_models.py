@@ -22,8 +22,8 @@ class ResponseOcurrence(mixins.TimestampModelMixin, mixins.OwnerModelMixin):
     """
     Model representing a response to an occurrence in an event management system.
 
-    This model stores information related to the response of a specific occurrence, 
-    including its classifications, description, and whether it has been resolved, 
+    This model stores information related to the response of a specific occurrence,
+    including its classifications, description, and whether it has been resolved,
     investigated, or sent to a manager.
 
     Inherits from:

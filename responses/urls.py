@@ -23,7 +23,7 @@ app_name = "responses"
 
 urlpatterns = [
     path(
-        "response_event/<int:pk>/",
+        "response/<int:pk>/",
         EventResponseOcurrenceCreateView.as_view(),
         name="responseocurrence_create",
     ),

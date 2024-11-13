@@ -1,0 +1,35 @@
+<!-- Modal para visualização e edição -->
+<div class="modal fade" id="viewEventModal" tabindex="-1" aria-labelledby="viewEventModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="viewEventModalLabel">Detalhes da Ocorrência</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Conteúdo dinâmico da ocorrência será carregado aqui -->
+                <form id="editEventForm">
+                    {% csrf_token %}
+                    <input type="hidden" id="eventId" name="id">
+                    <div class="mb-3">
+                        <label for="reportingDepartment" class="form-label">Setor Notificante</label>
+                        <input type="text" class="form-control" id="reportingDepartment" name="reporting_department">
+                    </div>
+                    <div class="mb-3">
+                        <label for="notifiedDepartment" class="form-label">Setor Notificado</label>
+                        <input type="text" class="form-control" id="notifiedDepartment" name="notified_department">
+                    </div>
+                    <div class="mb-3">
+                        <label for="ocurrenceDate" class="form-label">Data da Ocorrência</label>
+                        <input type="date" class="form-control" id="ocurrenceDate" name="ocurrence_date">
+                    </div>
+                    <!-- Outros campos conforme o model -->
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                <button type="button" class="btn btn-primary" id="editEventBtn">Salvar Alterações</button>
+            </div>
+        </div>
+    </div>
+</div>

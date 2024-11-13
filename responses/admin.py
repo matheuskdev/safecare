@@ -19,6 +19,7 @@ class MetasAdmin(admin.ModelAdmin):
         list_filter (tuple): Fields to include in the filter sidebar.
         ordering (tuple): Default ordering for the admin list view.
     """
+
     list_display = ("name",)
     search_fields = ("name",)
     list_filter = (
@@ -33,7 +34,7 @@ class OcurrenceDescriptionAdmin(admin.ModelAdmin):
     """
     Admin configuration for the OcurrenceDescription model.
 
-    Customizes the Django admin interface for the OcurrenceDescription model, 
+    Customizes the Django admin interface for the OcurrenceDescription model,
     with display, search, filtering, and ordering options.
 
     Attributes:
@@ -42,6 +43,7 @@ class OcurrenceDescriptionAdmin(admin.ModelAdmin):
         list_filter (tuple): Fields available in the filter sidebar.
         ordering (tuple): Default ordering for the admin list view.
     """
+
     list_display = ("name",)
     search_fields = ("name",)
     list_filter = (
@@ -55,7 +57,7 @@ class OcurrenceDescriptionAdmin(admin.ModelAdmin):
 class ResponseOcurrenceAdmin(admin.ModelAdmin):
     """
     Admin configuration for the ResponseOcurrence model.
-    
+
     Configures the Django admin interface for the ResponseOcurrence model with
     options for display, search, filter, date hierarchy, and ordering.
 
@@ -66,6 +68,7 @@ class ResponseOcurrenceAdmin(admin.ModelAdmin):
         date_hierarchy (str): Field to use for date-based drill-down navigation.
         ordering (tuple): Default ordering for the list view.
     """
+
     list_display = (
         "ocurrence",
         "meta",

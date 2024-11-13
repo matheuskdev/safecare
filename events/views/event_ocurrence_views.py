@@ -111,7 +111,9 @@ class EventOcurrenceCreateView(CreateView):
         Returns:
             str: The URL for the success page, including the ID of the created event occurrence.
         """
-        return reverse("events:eventocurrence_success", kwargs={"pk": self.object.id})
+        return reverse(
+            "events:eventocurrence_success", kwargs={"pk": self.object.id}
+        )
 
 
 class EventSucessTemplateView(TemplateView):
@@ -153,7 +155,48 @@ class EventListView(ListView):
     model = EventOcurrence
     template_name = "event/events_list.html"
     context_object_name = "events"
-    paginate_by = 5
 
     def get_queryset(self):
         return EventOcurrence.objects.filter(response_ocurrence__isnull=True)
+
+
+from django.http import JsonResponse
+from django.views.generic.detail import BaseDetailView
+
+
+class EventOcurrenceDataView(BaseDetailView):
+    model = EventOcurrence
+
+    def render_to_response(self, context, **response_kwargs):
+        # Construir o JSON com os dados da ocorrência
+        event = self.get_object()
+        data = {
+            "id": event.id,
+            "reporting_department": event.reporting_department,
+            "notified_department": event.notified_department,
+            "ocurrence_date": event.ocurrence_date.strftime("%Y-%m-%d"),
+            # Adicionar outros campos conforme necessário
+        }
+        return JsonResponse(data)
+
+
+from django.views.generic.edit import UpdateView
+
+from .models import EventOcurrence
+
+
+class EventOcurrenceUpdateView(UpdateView):
+    model = EventOcurrence
+    fields = ["reporting_department", "notified_department", "ocurrence_date"]
+    # Lista de campos que você deseja editar
+
+    def form_valid(self, form):
+        # Salvar os dados se o formulário for válido
+        self.object = form.save()
+        return JsonResponse({"success": True})
+
+    def form_invalid(self, form):
+        # Retornar erro se o formulário for inválido
+        return JsonResponse(
+            {"success": False, "errors": form.errors}, status=400
+        )

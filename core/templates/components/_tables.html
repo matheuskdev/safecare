@@ -1,33 +1,244 @@
 {% extends 'base.html' %}
 {% load static %}
 
-
 {% block extra_css %}
-  <!-- Datatables -->
-  <link href="{% static 'vendors/datatables.net-bs/css/dataTables.bootstrap.min.css' %}" rel="stylesheet">
-  <link href="{% static 'vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css' %}" rel="stylesheet">
-  <link href="{% static 'vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css' %}" rel="stylesheet">
-  <link href="{% static 'vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css' %}" rel="stylesheet">
-  <link href="{% static 'vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/DataTables/datatables.min.css' %}" rel="stylesheet">
+    <style>
+        /* Definindo as cores da identidade do SafeCare */
+        .dataTables_wrapper {
+            background-color: #f5f5f5;
+            border-radius: 10px;
+            padding: 15px;
+        }
 
-<style>
-.dt-buttons .btn {
-    padding: 5px 10px; /* Ajusta o padding dos botões */
-    font-size: 14px; /* Tamanho da fonte menor */
-    margin-right: 5px; /* Espaço entre os botões */
+        .dataTables_wrapper .dataTables_filter input {
+            border: 2px solid #17a2b8;
+            border-radius: 20px;
+            padding: 5px 15px;
+        }
+
+        .dataTables_wrapper .dt-buttons .btn {
+            background-color: #17a2b8;
+            color: white;
+            border-radius: 30px;
+            transition: background-color 0.3s ease;
+        }
+
+        .dataTables_wrapper .dt-buttons .btn:hover {
+            background-color: #138496;
+        }
+
+        table.dataTable tbody tr:hover {
+            background-color: #e9f7f9;
+            transition: background-color 0.3s ease;
+        }
+
+        /* Ícones com mais estilo */
+        .btn i {
+            transition: transform 0.3s ease;
+        }
+
+        .btn:hover i {
+            transform: scale(1.2);
+        }
+
+        /* Centralizando o conteúdo nas colunas */
+        td, th {
+            vertical-align: middle;
+            text-align: center;
+        }
+
+        /* Imagens pequenas com design arredondado */
+        img {
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            object-fit: cover;
+        }
+
+        /* Customizando as setas de ordenação */
+        th.sorting::after,
+        th.sorting_asc::after,
+        th.sorting_desc::after {
+            content: '';
+            display: inline-block;
+            margin-left: 5px;
+            border: 4px solid transparent;
+            border-top-color: #17a2b8;
+        }
+
+        th.sorting_desc::after {
+            border-top-color: transparent;
+            border-bottom-color: #17a2b8;
+        }
+        body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 0;
+    transition: background-color 0.5s ease;
 }
 
-.dataTables_filter {
-    float: right; /* Alinha o campo de pesquisa à direita */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
 }
 
-.dataTables_wrapper .col-md-1, 
-.dataTables_wrapper .col-md-6 {
-    display: flex;
-    align-items: center;
+header {
+    text-align: center;
+    padding: 20px;
+    background-color: #009688; /* Verde */
+    color: white;
+    border-bottom: 5px solid #ff9800; /* Laranja */
+    animation: headerFadeIn 1.5s ease-in-out;
 }
-</style>
-{% endblock %}
+
+h1 {
+    margin: 0;
+    font-size: 2.5rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    animation: textSlideDown 1s ease;
+}
+
+main {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+    animation: contentZoom 0.8s ease;
+}
+
+
+footer a:hover {
+    color: #3f51b5; /* Azul */
+    text-decoration: underline;
+}
+
+table.dataTable {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+table.dataTable thead {
+    background-color: #3f51b5; /* Azul */
+    color: white;
+    transition: background-color 0.3s ease;
+}
+
+table.dataTable tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+    transition: background-color 0.3s ease;
+}
+
+table.dataTable tbody tr:hover {
+    background-color: #ffcc80; /* Laranja */
+    color: #333;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    transform: scale(1.02);
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
+}
+
+table.dataTable tbody tr {
+    transition: all 0.3s ease;
+}
+
+table.dataTable tbody tr:hover td {
+    animation: pulse 0.3s ease-in-out;
+}
+
+@media (max-width: 768px) {
+    h1 {
+        font-size: 1.8rem;
+    }
+
+    main {
+        padding: 10px;
+    }
+
+    footer p {
+        font-size: 0.8rem;
+    }
+
+    footer a {
+        font-size: 0.9rem;
+    }
+
+}
+
+/* Animações */
+@keyframes headerFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes textSlideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes contentZoom {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes footerSlideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+    </style>
+{% endblock extra_css %}
+
 
 {% block content %}
 <div class="col-md-12 col-sm-12 ">
@@ -36,7 +247,7 @@
       <h2>{% block subtitle %}{% endblock subtitle %}<small></small></h2>
       <ul class="nav navbar-right panel_toolbox">
         <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
-        <li><a href="{% block link %} {% endblock %}" ><i class="fa fa-plus"></i> Adicionar</a></li>
+        {% comment %} <li><a href="{% block link %} {% endblock %}" ><i class="fa fa-plus"></i> Adicionar</a></li> {% endcomment %}
       </ul>
       <div class="clearfix"></div>
     </div>
@@ -61,42 +272,26 @@
     </div>
   </div>
 </div>
-
-{% comment %} {% include 'components/_pagination.html' %} {% endcomment %}
-
 {% endblock %}
-
 {% block extra_script %}
-  <!-- Datatables -->
-  <script src="{% static 'vendors/datatables.net/js/jquery.dataTables.min.js' %}"></script>
-  <script src="{% static 'vendors/datatables.net-bs/js/dataTables.bootstrap.min.js' %}"></script>
-  <script src="{% static 'vendors/datatables.net-buttons/js/dataTables.buttons.min.js' %}"></script>
-  <script src="{% static 'vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js' %}"></script>
-  <script src="{% static 'vendors/datatables.net-buttons/js/buttons.flash.min.js' %}"></script>
-  <script src="{% static 'vendors/datatables.net-buttons/js/buttons.html5.min.js' %}"></script>
-  <script src="{% static 'vendors/datatables.net-buttons/js/buttons.print.min.js' %}"></script>
-  <script src="{% static 'vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js' %}"></script>
-  <script src="{% static 'vendors/datatables.net-keytable/js/dataTables.keyTable.min.js' %}"></script>
-  <script src="{% static 'vendors/datatables.net-responsive/js/dataTables.responsive.min.js' %}"></script>
-  <script src="{% static 'vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js' %}"></script>
-  <script src="{% static 'vendors/datatables.net-scroller/js/dataTables.scroller.min.js' %}"></script>
-  <script src="{% static 'vendors/jszip/dist/jszip.min.js' %}"></script>
-  <script src="{% static 'vendors/pdfmake/build/pdfmake.min.js' %}"></script>
-  <script src="{% static 'vendors/pdfmake/build/vfs_fonts.js' %}"></script>
-
-
-
-  <script>
-$("#mgbmtable").DataTable({
-    "dom": 'Bfrtip',
-    "responsive": true,
-    "lengthChange": false,
-    "autoWidth": false,
-    "buttons": ["excel", "pdf", "print"],
-    "language": {
-        "url": "//cdn.datatables.net/plug-ins/1.11.5/i18n/pt-BR.json"
-    },
-}).buttons().container().appendTo('#mgbmtable_wrapper .col-md-6:eq(0)'); // Mudar para col-md-6
-
-</script>
-{% endblock %}
+    <script src="{% static 'assets/vendor/DataTables/datatables.min.js' %}"></script>
+    <script>
+        $(document).ready(function() {
+            $("#mgbmtable").DataTable({
+                dom: 'Bfrtip',
+                responsive: true,
+                lengthChange: false,
+                autoWidth: false,
+                sPaginationType: "full_numbers",
+                iDisplayLength: 5,
+                //buttons: ['excel', 'pdf', 'print'],
+                language: {
+                    "url": "https://cdn.datatables.net/plug-ins/1.11.5/i18n/pt-BR.json"
+                },
+                initComplete: function() {
+                    $('.dataTables_filter input').attr('placeholder', 'Pesquisar...');
+                }
+            }).buttons().container().appendTo('#mgbmtable_wrapper .col-md-6:eq(0)');
+        });
+    </script>
+{% endblock extra_script %}

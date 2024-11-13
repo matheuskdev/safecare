@@ -7,8 +7,8 @@ class ResponseOcurrenceForm(forms.ModelForm):
     """
     Form for creating and updating ResponseOcurrence instances.
 
-    This form is used to handle user input for creating or editing 
-    `ResponseOcurrence` objects. It customizes the appearance and behavior 
+    This form is used to handle user input for creating or editing
+    `ResponseOcurrence` objects. It customizes the appearance and behavior
     of the fields with specific widgets and labels for a better user experience.
 
     Inherits from:

@@ -16,6 +16,7 @@ class IncidentClassificationAdmin(admin.ModelAdmin):
     classification field, enabling efficient management of incident classifications.
     Configures ordering by classification and uses created_at for date hierarchy.
     """
+
     list_display = ("classification",)
     search_fields = ("classification",)
     list_filter = ("classification",)
@@ -32,6 +33,7 @@ class OcurrenceClassificationAdmin(admin.ModelAdmin):
     allowing administrators to easily search, sort, and organize occurrence
     classifications. Ordered by classification with a date hierarchy on created_at.
     """
+
     list_display = ("classification",)
     search_fields = ("classification",)
     list_filter = ("classification",)
@@ -48,6 +50,7 @@ class DamageClassificationAdmin(admin.ModelAdmin):
     supporting efficient management and sorting by classification, with created_at
     set for date-based filtering.
     """
+
     list_display = ("classification",)
     search_fields = ("classification",)
     list_filter = ("classification",)

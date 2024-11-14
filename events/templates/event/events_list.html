@@ -34,7 +34,11 @@
             </td>
             <td>
                 <div class="d-flex gap-2 justify-content-center">
-                
+                    {% if perms.response.add_responseocurrence %}
+                        <a href="{% url 'responses:responseocurrence_create' event.id %}" class="btn btn-success btn-sm" title="Adicionar Tratativa">
+                            <i class="bi bi-folder"></i>
+                        </a>
+                    {% endif %}
                 <!--MODAL HERE -->
                  <button type="button" class="btn btn-info btn-sm" title="Visualizar" 
                     data-toggle="tooltip" 
@@ -43,21 +47,12 @@
                     data-id="{{ event.id }}">
                     <i class="bi bi-eye"></i>S
                 </button>
-                    {% if perms.events.change_eventocurrence %}
-                        <a href="#" class="btn btn-warning btn-sm" title="Editar">
-                            <i class="bi bi-pencil"></i>
-                        </a>
-                    {% endif %}
-                    {% if perms.events.delete_eventocurrence %}
-                        <a href="#" class="btn btn-danger btn-sm" title="Excluir">
-                            <i class="bi bi-trash"></i>
-                        </a>
-                    {% endif %}
-                    {% if perms.addendums.add_addendum %}
-                        <a href="#" class="btn btn-success btn-sm" title="Adicionar Tratativa">
-                            <i class="bi bi-folder"></i>
-                        </a>
-                    {% endif %}
+                {% if perms.events.delete_eventocurrence %}
+                    <a href="{% url 'events:eventocurrence_delete' event.id %}" class="btn btn-danger btn-sm" title="Excluir">
+                        <i class="bi bi-trash"></i>
+                    </a>
+                {% endif %}
+                {% include 'event/partial/_event_modal_detail_view.html' %}
                 </div>
             </td>
         </tr>

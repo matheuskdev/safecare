@@ -24,7 +24,17 @@
                         <input type="date" class="form-control" id="ocurrenceDate" name="ocurrence_date">
                     </div>
                     <!-- Outros campos conforme o model -->
-                </form>
+      <!-- Botões de ação -->
+      <div class="text-center">
+        <button type="submit" class="btn btn-primary">
+          <i class="bi bi-send"></i> Enviar Notificação
+        </button>
+        <button type="reset" class="btn btn-secondary">
+          <i class="bi bi-eraser"></i> Limpar
+        </button>
+      </div>
+    </form>
+    <!-- End floating Labels Form -->
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
@@ -33,3 +43,24 @@
         </div>
     </div>
 </div>
+
+<script>
+// Inicializar o modal corretamente usando JavaScript nativo do Bootstrap 5
+document.getElementById('viewEventModal').addEventListener('show.bs.modal', function (event) {
+    var button = event.relatedTarget;  // Botão que acionou o modal
+    var eventId = button.getAttribute('data-id');  // Extrair o ID do atributo data-id
+    var modal = this;
+
+    // Fazer a requisição AJAX para buscar os dados
+    fetch(`/events/get_event_data/${eventId}/`)
+        .then(response => response.json())
+        .then(data => {
+            // Preencher os campos do modal com os dados retornados
+            modal.querySelector('#eventId').value = data.id;
+            modal.querySelector('#reportingDepartment').value = data.reporting_department;
+            modal.querySelector('#notifiedDepartment').value = data.notified_department;
+            modal.querySelector('#ocurrenceDate').value = data.ocurrence_date;
+        })
+        .catch(error => console.error('Erro ao carregar os dados:', error));
+});
+</script>

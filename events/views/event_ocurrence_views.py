@@ -1,17 +1,30 @@
 """ Module views for Events """
 
+from django.http import HttpResponseRedirect, JsonResponse
+from django.views.generic.detail import BaseDetailView
+
+from django.views.generic.edit import UpdateView
+##########################################################
 from datetime import datetime
 
+from django.contrib import messages
+from django.contrib.messages import constants
+from django.contrib.auth.mixins import (
+    LoginRequiredMixin,
+    PermissionRequiredMixin,
+)
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.urls import reverse, reverse_lazy
 from django.views.generic import TemplateView
-from django.views.generic.edit import CreateView
-from django.views.generic.list import ListView
+from django.views.generic import CreateView, DeleteView, ListView
+
 
 from events.forms.event_ocurrence_forms import EventOcurrenceForm
 from events.forms.event_patient_forms import EventPatientForm
 from events.models.event_ocurrence_models import EventOcurrence
+from events.models.event_patient_models import EventPatient
+from utils import mixins
 
 
 class EventOcurrenceCreateView(CreateView):
@@ -151,17 +164,15 @@ class EventSucessTemplateView(TemplateView):
         return context
 
 
-class EventListView(ListView):
+class EventListView(LoginRequiredMixin, PermissionRequiredMixin, ListView,):
     model = EventOcurrence
     template_name = "event/events_list.html"
     context_object_name = "events"
+    permission_required = "events.view_eventocurrence"
 
     def get_queryset(self):
         return EventOcurrence.objects.filter(response_ocurrence__isnull=True)
 
-
-from django.http import JsonResponse
-from django.views.generic.detail import BaseDetailView
 
 
 class EventOcurrenceDataView(BaseDetailView):
@@ -172,17 +183,12 @@ class EventOcurrenceDataView(BaseDetailView):
         event = self.get_object()
         data = {
             "id": event.id,
-            "reporting_department": event.reporting_department,
-            "notified_department": event.notified_department,
+            "reporting_department": event.reporting_department.name,
+            "notified_department": event.notified_department.name,
             "ocurrence_date": event.ocurrence_date.strftime("%Y-%m-%d"),
             # Adicionar outros campos conforme necessário
         }
         return JsonResponse(data)
-
-
-from django.views.generic.edit import UpdateView
-
-from .models import EventOcurrence
 
 
 class EventOcurrenceUpdateView(UpdateView):
@@ -200,3 +206,30 @@ class EventOcurrenceUpdateView(UpdateView):
         return JsonResponse(
             {"success": False, "errors": form.errors}, status=400
         )
+
+
+class EventOcurrenceDeleteView(
+    LoginRequiredMixin,
+    PermissionRequiredMixin,
+    DeleteView,
+):
+    model = EventOcurrence
+    template_name = "event/events_confirm_delete.html"
+    success_url = reverse_lazy("events:eventocurrence_list")
+    permission_required = "events.delete_eventocurrence"
+
+    def delete(self, request, *args, **kwargs):
+        response = super().delete(request, *args, **kwargs)
+        ocurrence = self.get_object()
+
+        if ocurrence.patient_involved:
+            patient_id = ocurrence.patient
+            patient = get_object_or_404(EventPatient, pk=patient_id)
+            patient.delete()
+
+        messages.add_message(
+            self.request, constants.SUCCESS, 'Paciente excluído com sucesso!'
+        )
+        print(messages)
+
+        return response

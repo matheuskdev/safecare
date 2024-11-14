@@ -25,6 +25,7 @@ from events.views.event_ocurrence_views import (
     EventOcurrenceDataView,
     EventOcurrenceUpdateView,
     EventSucessTemplateView,
+    EventOcurrenceDeleteView,
 )
 
 app_name: Literal["events"] = "events"
@@ -42,7 +43,12 @@ urlpatterns = [
         name="eventocurrence_list",
     ),
     path(
-        "get_event_data/<int:pk>/",
+        "events/<int:pk>/delete/",
+        EventOcurrenceDeleteView.as_view(),
+        name="eventocurrence_delete"
+    ),
+    path(
+        "events/get_event_data/<int:pk>/",
         EventOcurrenceDataView.as_view(),
         name="get_event_data",
     ),

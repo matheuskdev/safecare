@@ -1,0 +1,29 @@
+{% extends "base.html" %} 
+{% load static %} 
+{% block page_name %} 
+{% endblock page_name %} 
+{% block content %} 
+
+
+  <div class="container mt-4">
+    <h3 class="display-6">Deletar Ocorrência</h3>
+
+    <div class="card shadow-lg">
+      <div class="card-body">
+        <p class="card-text mt-3">Tem certeza que deseja excluir esta ocorrência? <strong>{{ object.id }} </strong></p>
+        {% if object.patient %}
+            <p>Ao excluir, o paciente vinculado a esta ocorrência também será excluído.  <strong>{{object.patient}}</strong></p>
+        {% endif %}
+        <form method="post">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-danger">Deletar</button>
+        </form>
+        
+        <a href="{% url 'events:eventocurrence_list' %}" class="btn btn-secondary mt-3">
+        <i class="bi bi-arrow-left"></i>
+        Cancelar e voltar para a Lista de Ocorrência
+        </a>
+      </div>
+    </div>
+  </div>
+{% endblock %}

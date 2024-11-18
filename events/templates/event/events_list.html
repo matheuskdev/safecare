@@ -16,14 +16,17 @@
     {% for event in events %}
         <tr>
             <td>
-                <a href="{% url 'responses:responseocurrence_create' event.id %}" class="text-primary fw-bold">
-                    {{ event.id }}
-                </a>
+                <div class="d-flex gap-2 justify-content-center" >
+                    <a href="{% url 'responses:responseocurrence_create' event.id %}" class="text-primary fw-bold">
+                        {{ event.id }}
+                    </a>
+                </div>
             </td>
-            <td>{{ event.reporting_department }}</td>
-            <td>{{ event.notified_department }}</td>
+            <td><div class="d-flex gap-2 justify-content-left" >{{ event.reporting_department }} </div></td>
+            <td><div class="d-flex gap-2 justify-content-left" >{{ event.notified_department }} </div></td>
             <td>{{ event.ocurrence_date|date:"d/m/Y" }}</td>
             <td>
+            <div class="d-flex gap-2 justify-content-left" >
                 {% if event.patient_involved %}
                     <img src="{% static 'assets/img/patient.png' %}" alt="Involves patient">
                     Envolve paciente
@@ -31,6 +34,7 @@
                     <img src="{% static 'assets/img/ocurrence.png' %}" alt="No patient">
                     Não envolve paciente
                 {% endif %}
+                </div>
             </td>
             <td>
                 <div class="d-flex gap-2 justify-content-center">

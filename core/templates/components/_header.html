@@ -20,7 +20,9 @@
 
 <nav class="header-nav ms-auto">
     <ul class="d-flex align-items-center">
-
+{% if user.is_authenticated %}
+Olá <strong> {{ user.username }}</strong>! 
+{% endif %}
 {% comment %} 
         <li class="nav-item d-block d-lg-none">
             <a class="nav-link nav-icon search-bar-toggle " href="#">

@@ -31,4 +31,5 @@ urlpatterns = [
     path("logout/", auth_views.LogoutView.as_view(), name="logout"),
     path("", include("events.urls")),
     path("", include("responses.urls")),
+    path("", include("investigations.urls"))
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

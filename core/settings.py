@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     "departments",
     "classifications",
     "responses",
+    "investigations",
 ]
 
 MIDDLEWARE = [

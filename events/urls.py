@@ -23,7 +23,6 @@ from events.views.event_ocurrence_views import (
     EventListView,
     EventOcurrenceCreateView,
     EventOcurrenceDataView,
-    EventOcurrenceUpdateView,
     EventSucessTemplateView,
     EventOcurrenceDeleteView,
 )
@@ -51,10 +50,5 @@ urlpatterns = [
         "events/get_event_data/<int:pk>/",
         EventOcurrenceDataView.as_view(),
         name="get_event_data",
-    ),
-    path(
-        "update_event/<int:pk>/",
-        EventOcurrenceUpdateView.as_view(),
-        name="update_event",
     ),
 ]

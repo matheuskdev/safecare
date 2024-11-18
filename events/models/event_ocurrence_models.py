@@ -40,7 +40,7 @@ class EventOcurrence(  # type: ignore[misc]
     Methods:
         __str__(): Returns a string representation of the event occurrence,
                    detailing the departments involved.
-    """
+    """  # noqa: E501
 
     patient_involved = models.BooleanField(
         default=False, help_text="A ocorrência envolveu algum paciente ?"

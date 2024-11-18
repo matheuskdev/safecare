@@ -9,7 +9,7 @@ from django.contrib.auth.mixins import (
 from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic.edit import FormView
-
+from django.views.generic import TemplateView
 from events.models.event_ocurrence_models import EventOcurrence
 from events.models.event_patient_models import EventPatient
 from responses.forms import ResponseOcurrenceForm
@@ -46,7 +46,7 @@ class EventResponseOcurrenceCreateView(
     model = ResponseOcurrence
     form_class = ResponseOcurrenceForm
     template_name = "response/events_form.html"
-    success_url = reverse_lazy("events:response_success")
+    success_url = reverse_lazy("responses:responseocurrence_success")
     permission_required = "events.add_responseocurrence"
 
     def __init__(self, **kwargs: Any) -> None:
@@ -145,4 +145,39 @@ class EventResponseOcurrenceCreateView(
         Returns:
             str: The success URL.
         """
-        return reverse_lazy("events:response_success")
+        return reverse_lazy("responses:responseocurrence_success")
+
+class EventResponseSucessTemplateView(TemplateView):
+    """
+    View to display the success page after an event response occurrence is submitted.
+
+    This view is responsible for showing a success message with the details of the
+    event occurrence after it has been successfully created. It fetches the event
+    from the database using the primary key provided in the URL.
+
+    Attributes:
+        template_name (str): The name of the template used to render the success page.
+
+    Methods:
+        get_context_data(**kwargs):
+            Returns the context data to be rendered in the success page, including the event details.
+    """  # noqa: E501
+
+    template_name = "response/event_sucess.html"
+
+    def get_context_data(self, **kwargs: dict[str]) -> dict[str]:
+        """
+        Adds the event details to the context for rendering the success page.
+
+        Args:
+            **kwargs: Additional keyword arguments passed to the context.
+
+        Returns:
+            dict: The context data including the event details.
+        """
+        context = super().get_context_data(**kwargs)
+        event = get_object_or_404(EventOcurrence, pk=self.kwargs.get("pk"))
+        context["event"] = event
+        # context['pk'] = self.kwargs.get('pk')
+        return context
+

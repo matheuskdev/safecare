@@ -17,7 +17,10 @@ Including another URLconf
 
 from django.urls import path
 
-from responses.views import EventResponseOcurrenceCreateView
+from responses.views import (
+    EventResponseOcurrenceCreateView,
+    EventResponseSucessTemplateView,
+)
 
 app_name = "responses"
 
@@ -26,5 +29,10 @@ urlpatterns = [
         "response/<int:pk>/",
         EventResponseOcurrenceCreateView.as_view(),
         name="responseocurrence_create",
+    ),
+    path(
+        "response/<int:pk>/sucess/",
+        EventResponseSucessTemplateView.as_view(),
+        name="responseocurrence_success",
     ),
 ]

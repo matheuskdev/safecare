@@ -1,9 +1,7 @@
 """ Module views for Events """
 
-from django.http import HttpResponseRedirect, JsonResponse
+from django.http import JsonResponse
 from django.views.generic.detail import BaseDetailView
-
-from django.views.generic.edit import UpdateView
 ##########################################################
 from datetime import datetime
 
@@ -16,8 +14,7 @@ from django.contrib.auth.mixins import (
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.urls import reverse, reverse_lazy
-from django.views.generic import TemplateView
-from django.views.generic import CreateView, DeleteView, ListView
+from django.views.generic import CreateView, DeleteView, ListView, TemplateView
 
 
 from events.forms.event_ocurrence_forms import EventOcurrenceForm
@@ -79,7 +76,7 @@ class EventOcurrenceCreateView(CreateView):
 
         Returns:
             context: The context data including the patient form and current date.
-        """
+        """  # noqa: E501
         context: dict = super().get_context_data(**kwargs)
         context["patient_form"] = EventPatientForm(self.request.POST or None)
         context["current_date"] = datetime.now()
@@ -94,7 +91,7 @@ class EventOcurrenceCreateView(CreateView):
 
         Returns:
             HttpResponse: The response to be sent after successfully saving the form.
-        """
+        """  # noqa: E501
         context = self.get_context_data()
         patient_form = context["patient_form"]
         if form.cleaned_data.get("patient_involved"):
@@ -123,7 +120,7 @@ class EventOcurrenceCreateView(CreateView):
 
         Returns:
             str: The URL for the success page, including the ID of the created event occurrence.
-        """
+        """  # noqa: E501
         return reverse(
             "events:eventocurrence_success", kwargs={"pk": self.object.id}
         )
@@ -143,7 +140,7 @@ class EventSucessTemplateView(TemplateView):
     Methods:
         get_context_data(**kwargs):
             Returns the context data to be rendered in the success page, including the event details.
-    """
+    """  # noqa: E501
 
     template_name = "event/event_sucess.html"
 
@@ -174,7 +171,6 @@ class EventListView(LoginRequiredMixin, PermissionRequiredMixin, ListView,):
         return EventOcurrence.objects.filter(response_ocurrence__isnull=True)
 
 
-
 class EventOcurrenceDataView(BaseDetailView):
     model = EventOcurrence
 
@@ -191,24 +187,8 @@ class EventOcurrenceDataView(BaseDetailView):
         return JsonResponse(data)
 
 
-class EventOcurrenceUpdateView(UpdateView):
-    model = EventOcurrence
-    fields = ["reporting_department", "notified_department", "ocurrence_date"]
-    # Lista de campos que você deseja editar
-
-    def form_valid(self, form):
-        # Salvar os dados se o formulário for válido
-        self.object = form.save()
-        return JsonResponse({"success": True})
-
-    def form_invalid(self, form):
-        # Retornar erro se o formulário for inválido
-        return JsonResponse(
-            {"success": False, "errors": form.errors}, status=400
-        )
-
-
 class EventOcurrenceDeleteView(
+    mixins.SoftDeleteViewMixin,
     LoginRequiredMixin,
     PermissionRequiredMixin,
     DeleteView,

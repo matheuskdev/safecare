@@ -16,7 +16,7 @@ class ResponseOcurrenceForm(forms.ModelForm):
 
     Attributes:
         Meta (class): Contains metadata options for the form fields.
-    """
+    """  # noqa: #501
 
     class Meta:
         model = ResponseOcurrence
@@ -28,6 +28,7 @@ class ResponseOcurrenceForm(forms.ModelForm):
             "incident_classification",
             "ocurrence_classification",
             "damage_classification",
+            "ocurrence_description"
         ]
         widgets = {
             "meta": forms.Select(attrs={"class": "form-select"}),
@@ -53,6 +54,9 @@ class ResponseOcurrenceForm(forms.ModelForm):
             "damage_classification": forms.Select(
                 attrs={"class": "form-select"}
             ),
+            "ocurrence_description": forms.Select(
+                attrs={"class": "form-select"}
+            ),
         }
         labels = {
             "ocurrence": "Ocorrência",
@@ -63,4 +67,5 @@ class ResponseOcurrenceForm(forms.ModelForm):
             "incident_classification": "Classificação do Incidente",
             "ocurrence_classification": "Classificação da Ocorrência",
             "damage_classification": "Classificação do Dano",
+            "ocurrence_description": "Descrição da Ocorrência"
         }

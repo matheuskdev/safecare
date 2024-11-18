@@ -2,11 +2,19 @@
 <!-- Seção de Informações do Paciente -->
 <div class="row g-3">
 
-<!-- Nome do Paciente -->
-<div class="col-md-8">
+<!-- form.incident_classification do Paciente -->
+<div class="col-md-4">
   <div class="form-floating">
     <i class="bi bi-person"></i> ID do Paciente:
     <b>{{ patient.id }}</b>
+  </div>
+</div>
+
+<!-- Nome do Paciente -->
+<div class="col-md-4">
+  <div class="form-floating">
+    <i class="bi bi-person"></i> Nome do Paciente:
+    <b>{{ patient.patient_name }}</b>
   </div>
 </div>
 

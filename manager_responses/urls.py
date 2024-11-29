@@ -16,25 +16,18 @@ Including another URLconf
 """
 
 from typing import Literal
+
 from django.urls import path
 from django.urls.resolvers import URLPattern
 
-from responses.views import (
-    EventResponseOcurrenceCreateView,
-    EventResponseSucessTemplateView,
-)
+from .views import ManagerResponseFormView
 
-app_name: Literal["responses"] = "responses"
+app_name: Literal["manager_responses"] = "manager_responses"
 
 urlpatterns: list[URLPattern] = [
     path(
-        "response/<int:pk>/",
-        EventResponseOcurrenceCreateView.as_view(),
-        name="responseocurrence_create",
-    ),
-    path(
-        "response/<int:pk>/sucess/",
-        EventResponseSucessTemplateView.as_view(),
-        name="responseocurrence_success",
+        "manager_response/<int:pk>/",
+        ManagerResponseFormView.as_view(),
+        name="manager_response_create",
     ),
 ]

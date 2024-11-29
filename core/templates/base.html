@@ -240,7 +240,7 @@ footer a:hover {
         </h1>
       </div>
       {% if messages %}
-          <div class="alert-container">
+          <div class="alert-container" id="message">
               {% for message in messages %}
                   <div class="alert alert-{{ message.tags }}">
                       {{ message }}
@@ -275,8 +275,11 @@ footer a:hover {
 
   <!-- Template Main JS File -->
   <script src="{% static 'assets/js/main.js' %}"></script>
+  <script src="{% static 'assets/js/remove_message.js' %}"></script>
+
 {% block extra_script %}
 {% endblock extra_script %}
+
 <script>
     $(document).ready(function() {
         $('#warningmodal').modal('show');
@@ -284,5 +287,4 @@ footer a:hover {
 </script>
 
 </body>
-
 </html>

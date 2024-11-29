@@ -7,9 +7,10 @@ from django.contrib.auth.mixins import (
     PermissionRequiredMixin,
 )
 from django.shortcuts import get_object_or_404
-from django.urls import reverse_lazy
+from django.urls import reverse, reverse_lazy
 from django.views.generic.edit import FormView
 from django.views.generic import TemplateView
+from regex import D
 from events.models.event_ocurrence_models import EventOcurrence
 from events.models.event_patient_models import EventPatient
 from responses.forms import ResponseOcurrenceForm
@@ -145,7 +146,10 @@ class EventResponseOcurrenceCreateView(
         Returns:
             str: The success URL.
         """
-        return reverse_lazy("responses:responseocurrence_success")
+        return reverse(
+            "responses:responseocurrence_success", kwargs={"pk": self.object.id}
+        )
+
 
 class EventResponseSucessTemplateView(TemplateView):
     """
@@ -165,7 +169,7 @@ class EventResponseSucessTemplateView(TemplateView):
 
     template_name = "response/event_sucess.html"
 
-    def get_context_data(self, **kwargs: dict[str]) -> dict[str]:
+    def get_context_data(self, **kwargs) -> dict[str, Any]:
         """
         Adds the event details to the context for rendering the success page.
 

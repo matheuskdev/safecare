@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 import os
 from pathlib import Path
 
+from click import INT
 from django.contrib.messages import constants
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -42,12 +43,16 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+
     "events",
     "accounts",
     "departments",
     "classifications",
     "responses",
     "investigations",
+    "manager_responses",
+
+    "debug_toolbar",
 ]
 
 MIDDLEWARE = [
@@ -58,11 +63,12 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 
 ROOT_URLCONF = "core.urls"
 
-TEMPLATES = [
+TEMPLATES= [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
         "DIRS": ["core/templates"],
@@ -144,9 +150,17 @@ LOGOUT_REDIRECT_URL = "/login/"
 
 AUTH_USER_MODEL = "accounts.User"
 
-MESSAGE_TAGS = {
+MESSAGE_TAGS: dict[str] = {
     constants.DEBUG: "alert alert-primary alert-dismissible",
     constants.ERROR: "alert alert-danger alert-dismissible",
     constants.SUCCESS: "alert alert-success alert-dismissible",
     constants.INFO: "alert alert-info alert-dismissible",
+}
+
+INTERNAL_IPS: list[str] = [
+    '127.0.0.1',
+]
+
+MESSAGE_DESCRIPTION: dict = {
+    "ERROR": "Houve uma falha na sua solicitação, por favor tente novamente mais tarde!",
 }
